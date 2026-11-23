@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISTA CS — Coming Soon</title>
+  <meta name="description" content="ISTA CS is launching soon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f2;
+      --fg: #16161a;
+      --muted: #6b6b73;
+      --accent: #2f5bea;
+      --line: #dcdad4;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f12;
+        --fg: #f2f1ee;
+        --muted: #9a9aa3;
+        --accent: #7c9bff;
+        --line: #2a2a31;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+    header, footer {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .brand { font-weight: 700; color: var(--fg); letter-spacing: 0.02em; }
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 0;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: 0.3; } }
+    @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+    h1 {
+      font-size: clamp(44px, 9vw, 104px);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      font-weight: 700;
+      max-width: 12ch;
+    }
+    h1 span { color: var(--accent); }
+    p.lead {
+      margin-top: 28px;
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 46ch;
+    }
+    footer { border-top: 1px solid var(--line); padding-top: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="brand">ISTA CS</span>
+    <span>&copy; <span id="y">2026</span></span>
+  </header>
+
+  <main>
+    <div class="tag"><span class="dot"></span> In progress</div>
+    <h1>Something new is <span>coming soon.</span></h1>
+    <p class="lead">We're building the new ISTA CS website. Check back shortly.</p>
+  </main>
+
+  <footer>
+    <span>ISTA CS</span>
+    <span>Launching soon</span>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
