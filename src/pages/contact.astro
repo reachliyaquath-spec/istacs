@@ -1,0 +1,117 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Enquiry from "../components/Enquiry.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../data/site";
+import auckland from "../assets/photos/auckland.jpg";
+
+const faqs = [
+  {
+    q: "Is the first counselling session really free?",
+    a: "Yes. Your first conversation with a counsellor costs nothing, whether in person or by phone. We explain any service fees before you commit to anything.",
+  },
+  {
+    q: "What should I bring to counselling?",
+    a: "Your mark sheets and certificates, passport (if you have one), any English test scores, and a rough idea of your budget. Parents are very welcome to come along.",
+  },
+  {
+    q: "Can you guarantee a visa or admission?",
+    a: "No honest consultant can. Visa and admission decisions are made by embassies and institutions. What we do is make sure your application is complete, accurate and as strong as it can be.",
+  },
+  {
+    q: "Do I need to visit the office?",
+    a: "Not always. Many students start on the phone or WhatsApp. Most families like to visit at least once, and you are welcome during office hours.",
+  },
+];
+---
+
+<Base
+  title="Contact ISTA Consultancy Services | Book Free Counselling, Tolichowki, Hyderabad"
+  description="Book a free counselling session with ISTA Consultancy Services. Call +91 97006 81067, WhatsApp, email info@istacs.com, or visit our Tolichowki, Hyderabad office."
+>
+  <PageHero
+    title="Book a free counselling session"
+    lead="Call, WhatsApp, email, or visit our Tolichowki office. Send your details below and a counsellor will reply within one working day."
+    img={auckland}
+    pos="52% 60%"
+    crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+    cta={{ label: "Send your details", href: "#enquire" }}
+  >
+    <a slot="actions" class="btn btn--glass" href={`tel:${site.phone.tel}`}><Icon name="phone" /> Call {site.phone.display}</a>
+  </PageHero>
+
+  <Enquiry title="Send us your details" lead="Fill in the form and it opens WhatsApp with everything ready to send. Or use any of the contact options below." />
+
+  <section class="section">
+    <div class="wrap faq">
+      <div>
+        <h2 class="h2" data-rv>Before you visit</h2>
+        <p class="lead faq__lead" data-rv>Answers to what families ask us most often.</p>
+      </div>
+      <div class="faq__list">
+        {
+          faqs.map((f) => (
+            <details data-rv>
+              <summary>
+                {f.q}
+                <Icon name="chevron" />
+              </summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .faq__lead {
+    margin-top: 18px;
+  }
+  .faq__list {
+    border-top: 1px solid var(--line);
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary :global(svg) {
+    flex: none;
+    color: var(--blue);
+    transition: transform 0.35s var(--ease);
+  }
+  details[open] summary :global(svg) {
+    transform: rotate(180deg);
+  }
+  details p {
+    padding-bottom: 24px;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+  @media (max-width: 900px) {
+    .faq {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

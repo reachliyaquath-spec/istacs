@@ -1,0 +1,287 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import Enquiry from "../../components/Enquiry.astro";
+import Icon from "../../components/Icon.astro";
+import { services, type Service } from "../../data/services";
+import { site } from "../../data/site";
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+
+const { s } = Astro.props as { s: Service };
+const related = services.filter((o) => o.slug !== s.slug && o.group === s.group).concat(services.filter((o) => o.group !== s.group)).slice(0, 3);
+
+const formService: Record<string, string> = {
+  "australia-immigration": "Australia PR",
+  "canada-immigration": "Canada PR",
+  "certificate-attestation": "Attestation",
+  "visit-visa-assistance": "Visit visa",
+  "ielts-coaching": "IELTS coaching",
+  "pte-training": "PTE training",
+};
+const formCountry = s.slug === "australia-immigration" ? "Australia" : s.slug === "canada-immigration" ? "Canada" : "Not decided";
+---
+
+<Base title={`${s.title} | ISTA Consultancy Services, Hyderabad`} description={`${s.short} ISTA Consultancy Services, Tolichowki, Hyderabad, since 2013.`}>
+  <PageHero
+    title={s.title}
+    lead={s.short}
+    img={s.img}
+    crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services/" }, { label: s.title }]}
+  >
+    <a slot="actions" class="btn btn--glass" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">
+      <Icon name="whatsapp" /> WhatsApp us
+    </a>
+  </PageHero>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="wrap ov">
+      <div>
+        <h2 class="h2" data-rv>What we do for you</h2>
+        <div class="prose ov__text" data-rv>{s.intro.map((p) => <p>{p}</p>)}</div>
+
+        <h3 class="h3 ov__sub" data-rv>Who this is for</h3>
+        <ul class="who">
+          {s.forWho.map((w) => <li data-rv><Icon name="users" size={18} />{w}</li>)}
+        </ul>
+      </div>
+
+      <aside class="inc" data-rv aria-labelledby="inc-h">
+        <h3 id="inc-h">What's included</h3>
+        <ul class="checks">{s.includes.map((i) => <li><Icon name="check" />{i}</li>)}</ul>
+        <a class="btn btn--sun" href="#enquire">Book free counselling <Icon name="arrow" class="arr" /></a>
+        {s.note && <p class="inc__note">{s.note}</p>}
+      </aside>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section section--mist">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" data-rv>How it works</h2>
+        <p class="lead" data-rv>A clear process, with one person at ISTA you can call at every step.</p>
+      </div>
+      <ol class="steps">
+        {
+          s.steps.map((st, i) => (
+            <li class="step" data-rv>
+              <span class="step__n">{i + 1}</span>
+              <h3>{st.title}</h3>
+              <p>{st.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2 rel__h" data-rv>Related services</h2>
+      <ul class="rel">
+        {
+          related.map((r) => (
+            <li data-rv>
+              <a href={`/services/${r.slug}/`}>
+                <Icon name={r.icon} size={26} />
+                <span class="rel__body">
+                  <b>{r.title}</b>
+                  <small>{r.short}</small>
+                </span>
+                <Icon name="arrow" class="rel__arr" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Enquiry title={`Ask us about ${s.title.toLowerCase()}`} service={formService[s.slug]} country={formCountry} />
+</Base>
+
+<style>
+  .ov {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .ov__text {
+    margin-top: 22px;
+  }
+  .ov__sub {
+    margin-top: 44px;
+  }
+  .who {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .who li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--wash);
+    font-weight: 500;
+  }
+  .who :global(svg) {
+    color: var(--blue);
+  }
+  .inc {
+    position: sticky;
+    top: 110px;
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius);
+    background: var(--navy);
+    color: var(--on-navy);
+    display: grid;
+    gap: 22px;
+  }
+  .inc h3 {
+    color: #fff;
+    font-size: 1.4rem;
+  }
+  .inc .btn {
+    width: 100%;
+  }
+  .inc__note {
+    font-size: 0.88rem;
+    color: var(--on-navy-2);
+    padding-top: 16px;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .step {
+    position: relative;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 60px;
+    right: -20px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #c8d5e1 0 8px, transparent 8px 14px);
+  }
+  .step:last-child::before {
+    display: none;
+  }
+  .step__n {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+  }
+  .step h3 {
+    margin-top: 24px;
+    font-size: 1.25rem;
+  }
+  .step p {
+    margin-top: 8px;
+    color: var(--ink-2);
+  }
+
+  .rel__h {
+    margin-bottom: 32px;
+  }
+  .rel {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .rel a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: start;
+    height: 100%;
+    padding: 26px;
+    border-radius: var(--radius);
+    background: var(--mist);
+    text-decoration: none;
+    transition: background-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+  .rel a:hover {
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+  .rel a > :global(svg:first-child) {
+    width: 48px;
+    height: 48px;
+    padding: 11px;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--blue);
+  }
+  .rel b {
+    display: block;
+    font-size: 1.1rem;
+  }
+  .rel small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .rel :global(.rel__arr) {
+    color: var(--blue);
+    margin-top: 4px;
+    transition: transform 0.4s var(--ease);
+  }
+  .rel a:hover :global(.rel__arr) {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 1000px) {
+    .ov {
+      grid-template-columns: 1fr;
+    }
+    .inc {
+      position: static;
+    }
+    .steps {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 36px;
+    }
+    .step:nth-child(2)::before {
+      display: none;
+    }
+    .rel {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+    .step::before {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/decision/
+.impeccable/hook.cache.json

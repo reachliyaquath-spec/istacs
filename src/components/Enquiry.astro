@@ -1,0 +1,305 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  lead?: string;
+  /** Preselect these in the form (e.g. on a country or service page). */
+  service?: string;
+  country?: string;
+  id?: string;
+  headingLevel?: "h1" | "h2";
+}
+const {
+  title = "Talk to a counsellor, free",
+  lead = "Send your details and we will reply on WhatsApp or call you back, usually within one working day.",
+  service = "Study abroad",
+  country = "Not decided",
+  id = "enquire",
+  headingLevel = "h2",
+} = Astro.props;
+
+const services = ["Study abroad", "Australia PR", "Canada PR", "Attestation", "Visit visa", "IELTS coaching", "PTE training", "Not sure yet"];
+const countries = ["Australia", "UK", "USA", "Canada", "New Zealand", "Europe", "Not decided"];
+const Heading = headingLevel;
+---
+
+<section class="enq" id={id} aria-labelledby={`${id}-h`}>
+  <div class="wrap enq__grid">
+    <div>
+      <Heading class="h2" id={`${id}-h`} data-rv>{title}</Heading>
+      <p class="lead" data-rv>{lead}</p>
+
+      <ul class="clist">
+        <li data-rv>
+          <Icon name="phone" />
+          <div>
+            <small>Call</small>
+            <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
+            <a href={`tel:${site.landline.tel}`}>{site.landline.display}</a>
+          </div>
+        </li>
+        <li data-rv>
+          <Icon name="whatsapp" />
+          <div>
+            <small>WhatsApp</small>
+            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">Message us on WhatsApp</a>
+          </div>
+        </li>
+        <li data-rv>
+          <Icon name="mail" />
+          <div>
+            <small>Email</small>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+        </li>
+        <li data-rv>
+          <Icon name="pin" />
+          <div>
+            <small>Visit the office</small>
+            <address>{site.address.map((l) => <>{l}<br /></>)}</address>
+            <a class="link" href={site.mapsUrl} target="_blank" rel="noopener">Get directions <Icon name="arrow" size={18} /></a>
+          </div>
+        </li>
+        <li data-rv>
+          <Icon name="clock" />
+          <div>
+            <small>Office hours</small>
+            <p>{site.hours}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <form class="form" data-enquiry novalidate data-rv>
+      <h3>Book a free counselling session</h3>
+      <div class="f">
+        <label for={`${id}-name`}>Your name</label>
+        <input id={`${id}-name`} name="name" autocomplete="name" data-field="name" />
+        <p class="err" id={`${id}-name-err`} hidden>Please enter your name.</p>
+      </div>
+      <div class="f">
+        <label for={`${id}-phone`}>Phone or WhatsApp number</label>
+        <input id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91" data-field="phone" />
+        <p class="err" id={`${id}-phone-err`} hidden>Please enter a number we can reach you on.</p>
+      </div>
+      <div class="frow">
+        <div class="f">
+          <label for={`${id}-service`}>I need help with</label>
+          <select id={`${id}-service`} name="service">
+            {services.map((s) => <option selected={s === service}>{s}</option>)}
+          </select>
+        </div>
+        <div class="f">
+          <label for={`${id}-country`}>Country</label>
+          <select id={`${id}-country`} name="country">
+            {countries.map((c) => <option selected={c === country}>{c}</option>)}
+          </select>
+        </div>
+      </div>
+      <div class="f">
+        <label for={`${id}-msg`}>Anything else? <span>(optional)</span></label>
+        <textarea id={`${id}-msg`} name="message" rows="3" placeholder="Course, intake, current qualification…"></textarea>
+      </div>
+      <button class="btn btn--sun" type="submit"><Icon name="whatsapp" /> Send on WhatsApp</button>
+      <p class="note">Opens WhatsApp with your details filled in. Prefer email? <a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .enq {
+    padding-block: var(--section);
+    background: var(--mist);
+  }
+  .enq__grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 560px);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .lead {
+    margin-top: 18px;
+  }
+  .clist {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    gap: 24px;
+  }
+  .clist li {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+  }
+  .clist li > :global(svg) {
+    width: 44px;
+    height: 44px;
+    padding: 11px;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--blue);
+    box-shadow: 0 1px 2px rgb(11 27 46 / 0.06), 0 6px 16px -8px rgb(11 27 46 / 0.2);
+  }
+  .clist small {
+    display: block;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .clist a:not(.link),
+  .clist address,
+  .clist p {
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .clist a:not(.link):hover {
+    color: var(--blue);
+  }
+  .clist .link {
+    margin-top: 6px;
+  }
+
+  .form {
+    background: var(--navy);
+    color: var(--on-navy);
+    border-radius: 24px;
+    padding: clamp(24px, 4vw, 44px);
+    display: grid;
+    gap: 18px;
+  }
+  .form h3 {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  .f {
+    display: grid;
+    gap: 8px;
+  }
+  label {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  label span {
+    font-weight: 400;
+    color: var(--on-navy-2);
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border: 1.5px solid rgb(255 255 255 / 0.16);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.06);
+    color: #fff;
+    font: 500 1rem/1.4 var(--font);
+    transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+  }
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23a8bdd1' stroke-width='1.75' stroke-linecap='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 42px;
+  }
+  select option {
+    color: var(--ink);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #93aabf;
+  }
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: rgb(255 255 255 / 0.3);
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--blue-bright);
+    background: rgb(255 255 255 / 0.1);
+  }
+  input[aria-invalid="true"] {
+    border-color: #ff8a7a;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .err {
+    color: #ffb1a6;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .frow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form .btn {
+    width: 100%;
+    min-height: 56px;
+  }
+  .note {
+    color: var(--on-navy-2);
+    font-size: 0.88rem;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .enq__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .frow {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { site } from "../data/site";
+
+  document.querySelectorAll<HTMLFormElement>("[data-enquiry]").forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const d = new FormData(form);
+      const name = String(d.get("name") || "").trim();
+      const phone = String(d.get("phone") || "").trim();
+
+      const check = (field: string, ok: boolean) => {
+        const input = form.querySelector<HTMLInputElement>(`[data-field="${field}"]`)!;
+        const err = document.getElementById(`${input.id}-err`)!;
+        input.setAttribute("aria-invalid", String(!ok));
+        if (ok) input.removeAttribute("aria-describedby");
+        else input.setAttribute("aria-describedby", err.id);
+        err.hidden = ok;
+        return ok;
+      };
+      const ok = [check("name", name.length > 1), check("phone", phone.replace(/\D/g, "").length >= 8)].every(Boolean);
+      if (!ok) {
+        form.querySelector<HTMLInputElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+
+      const lines = [
+        "Hello ISTA, I'd like a free counselling session.",
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Help with: ${d.get("service")}`,
+        `Country: ${d.get("country")}`,
+      ];
+      const msg = String(d.get("message") || "").trim();
+      if (msg) lines.push(`Notes: ${msg}`);
+      window.open(`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+    });
+  });
+</script>

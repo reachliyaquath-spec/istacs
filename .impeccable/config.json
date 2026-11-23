@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "demo/home-b.html"
+        ],
+        "createdAt": "2026-11-20T14:34:37.412Z",
+        "reason": "assistant: inactive hero crossfade slides sit at opacity 0 by design and fade in when their destination is selected"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "demo/home-b.html"
+        ],
+        "createdAt": "2026-11-20T14:34:38.066Z",
+        "reason": "assistant: full-bleed sections and ruled lists whose content is inset by the .wrap gutter or button padding; verified visually at 1440px"
+      }
+    ]
+  }
+}

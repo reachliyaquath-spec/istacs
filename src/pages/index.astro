@@ -1,0 +1,1151 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Enquiry from "../components/Enquiry.astro";
+import { site } from "../data/site";
+import { destinations } from "../data/destinations";
+
+import london from "../assets/photos/london.jpg";
+import toronto from "../assets/photos/toronto.jpg";
+import europe from "../assets/photos/europe.jpg";
+import auckland from "../assets/photos/auckland.jpg";
+import usa from "../assets/photos/usa.jpg";
+import sydney from "../assets/photos/sydney.jpg";
+
+const svc = [
+  {
+    title: "Study abroad admissions",
+    head: "From shortlist to student visa",
+    text: "We match your marks, budget and goals to universities and colleges in Australia, the UK, USA, Canada, New Zealand and Europe, then manage every application.",
+    items: ["Country, course and university shortlisting", "Applications, SOPs and offer letters", "Student visa filing and interview preparation"],
+    img: london,
+    alt: "London's Houses of Parliament at dusk",
+    href: "/study-abroad/australia/",
+    cta: "Explore study destinations",
+  },
+  {
+    title: "Australia & Canada PR",
+    head: "Permanent residency, planned properly",
+    text: "For skilled professionals and families who want to settle in Australia or Canada. We check eligibility honestly before you spend on anything.",
+    items: ["Eligibility and points assessment", "Skills assessment and document preparation", "Application filing and follow-up"],
+    img: toronto,
+    alt: "Toronto skyline at dusk",
+    href: "/services/canada-immigration/",
+    cta: "Canada immigration",
+    cta2: { label: "Australia immigration", href: "/services/australia-immigration/" },
+  },
+  {
+    title: "Certificate attestation",
+    head: "Documents ready for use abroad",
+    text: "Educational, personal and commercial documents attested end to end, so you are not chasing offices in between classes or work.",
+    items: ["Degree and school certificates", "Birth, marriage and personal documents", "Apostille and embassy attestation"],
+    img: europe,
+    alt: "Brandenburg Gate, Berlin",
+    href: "/services/certificate-attestation/",
+    cta: "About attestation",
+  },
+  {
+    title: "Visit visa assistance",
+    head: "Visiting family or travelling",
+    text: "Tourist and family-visit applications prepared properly the first time, with the supporting documents embassies expect.",
+    items: ["Forms and supporting documents", "Appointment and biometrics booking", "Pre-submission document check"],
+    img: auckland,
+    alt: "Auckland skyline at night",
+    href: "/services/visit-visa-assistance/",
+    cta: "About visit visas",
+  },
+  {
+    title: "IELTS & PTE coaching",
+    head: "The score your application needs",
+    text: "Classroom coaching and mock tests in our Tolichowki office, timed around your intake and application deadlines.",
+    items: ["IELTS Academic and General Training", "PTE Academic practice on every task type", "Full mock tests with feedback"],
+    img: usa,
+    alt: "New York skyline at sunset",
+    href: "/services/ielts-coaching/",
+    cta: "IELTS coaching",
+    cta2: { label: "PTE training", href: "/services/pte-training/" },
+  },
+];
+
+const steps = [
+  { title: "Free counselling", text: "Your goals, budget, academics and timeline, talked through in person or by phone." },
+  { title: "Country & course", text: "A shortlist of universities and programmes that genuinely fit your profile and intake." },
+  { title: "Applications & documents", text: "Applications, SOPs, test scores, financial papers and attestation, checked before they go." },
+  { title: "Visa & pre-departure", text: "Visa filing and interview preparation, then travel, accommodation and arrival advice." },
+];
+---
+
+<Base
+  title="ISTA Consultancy Services | Study Abroad & Immigration Consultants in Hyderabad"
+  description="Study abroad admissions, student visas, Australia and Canada PR, certificate attestation, visit visas and IELTS/PTE coaching. Tolichowki, Hyderabad, since 2013."
+>
+  <!-- Hero: destination-led -->
+  <section class="hero" aria-labelledby="hero-h" data-hero>
+    <div class="hero__bg" data-hero-bg>
+      {
+        destinations.map((d, i) => (
+          <Image
+            src={d.img}
+            alt=""
+            widths={[800, 1280, 1920]}
+            sizes="100vw"
+            class:list={{ on: i === 0 }}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "auto"}
+            style={`object-position:${d.pos}`}
+          />
+        ))
+      }
+    </div>
+
+    <div class="wrap hero__in">
+      <h1 id="hero-h" data-hero-h aria-label="Study, work or settle abroad">
+        Study, work or settle in <span class="country" data-country><span>{destinations[0].inName}</span></span>.
+      </h1>
+      <p class="hero__lead" data-hero-rv>
+        One Hyderabad team for admissions, visas, PR, attestation and IELTS/PTE coaching. Guiding students and families from
+        Tolichowki since {site.since}.
+      </p>
+      <p class="hero__fact" data-fact aria-live="polite" data-hero-rv>{destinations[0].line}</p>
+
+      <div class="tabs" role="group" aria-label="Choose a destination" data-hero-rv>
+        {destinations.map((d, i) => <button class="tab" type="button" aria-pressed={i === 0 ? "true" : "false"} data-name={d.inName} data-line={d.line}>{d.name === "United Kingdom" ? "UK" : d.name}<i /></button>)}
+      </div>
+
+      <form class="quick" data-quick novalidate data-hero-rv>
+        <label><span>Your name</span><input name="name" autocomplete="name" placeholder="Full name" /></label>
+        <label><span>Phone / WhatsApp</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91" /></label>
+        <label>
+          <span>Interested in</span>
+          <select name="service" data-quick-service>
+            {destinations.map((d) => <option>Study in {d.inName}</option>)}
+            <option>Australia PR</option><option>Canada PR</option><option>Attestation</option><option>Visit visa</option><option>IELTS / PTE</option>
+          </select>
+        </label>
+        <button class="btn btn--sun" type="submit">Get free counselling <Icon name="arrow" class="arr" /></button>
+        <p class="quick__err" data-quick-err hidden role="alert">Please add your name and a phone number we can reach.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- At a glance -->
+  <section class="strip" aria-label="At a glance">
+    <div class="wrap">
+      <ul>
+        <li data-rv><Icon name="shield" /><span><b>Since {site.since}</b><small>Guiding Hyderabad families</small></span></li>
+        <li data-rv><Icon name="grad" /><span><b>6 study destinations</b><small>Australia to Europe</small></span></li>
+        <li data-rv><Icon name="home" /><span><b>Australia & Canada PR</b><small>Skilled and family routes</small></span></li>
+        <li data-rv><Icon name="book" /><span><b>IELTS & PTE in-house</b><small>Coaching in Tolichowki</small></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="svc-h" data-rv>One office for every step of your move</h2>
+        <p class="lead" data-rv>
+          Admissions lead to visas, visas need documents, documents often need a test score. Pick what you need, or let us
+          handle the whole chain.
+        </p>
+      </div>
+
+      <div class="svc" data-svc>
+        {
+          svc.map((s, i) => (
+            <div class="svc__item">
+              <button class="svc__btn" type="button" aria-expanded={i === 0 ? "true" : "false"} aria-controls={`svc-p${i}`} id={`svc-b${i}`}>
+                {s.title} <Icon name="arrow" size={28} />
+              </button>
+              <div class="svc__panel" id={`svc-p${i}`} role="region" aria-labelledby={`svc-b${i}`} hidden={i !== 0}>
+                <figure>
+                  <Image src={s.img} alt={s.alt} widths={[640, 960]} sizes="(max-width: 900px) 100vw, 45vw" />
+                </figure>
+                <h3>{s.head}</h3>
+                <p>{s.text}</p>
+                <ul class="checks">
+                  {s.items.map((it) => <li><Icon name="check" />{it}</li>)}
+                </ul>
+                <div class="svc__links">
+                  <a class="link" href={s.href}>{s.cta} <Icon name="arrow" /></a>
+                  {s.cta2 && <a class="link" href={s.cta2.href}>{s.cta2.label} <Icon name="arrow" /></a>}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinations grid (from A) -->
+  <section class="section section--mist" id="destinations" aria-labelledby="dest-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" id="dest-h" data-rv>Where would you like to study?</h2>
+        <p class="lead" data-rv>
+          We place students at universities and colleges in six regions, and our team has helped with admissions as far as
+          Singapore too.
+        </p>
+      </div>
+      <ul class="dest">
+        {
+          destinations.map((d, i) => (
+            <li class:list={["dest__card", { wide: [0, 3, 5].includes(i) }]} data-rv>
+              <a href={`/study-abroad/${d.slug}/`}>
+                <Image src={d.img} alt="" widths={[480, 800, 1200]} sizes={[0, 3, 5].includes(i) ? "(max-width: 900px) 100vw, 66vw" : "(max-width: 900px) 100vw, 33vw"} style={`object-position:${d.pos}`} />
+                <span class="dest__text">
+                  <span class="dest__name">Study in {d.inName} <Icon name="arrow" /></span>
+                  <span class="dest__line">{d.line}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Journey (pinned horizontal on desktop) -->
+  <section class="journey" id="journey" aria-labelledby="j-h" data-journey>
+    <div class="journey__pin">
+      <div class="wrap">
+        <div class="journey__head">
+          <h2 class="h2" id="j-h">From first call to boarding pass</h2>
+          <p class="lead">One counsellor stays with you the whole way, so you never have to explain your case twice.</p>
+        </div>
+        <div class="journey__bar" aria-hidden="true"><i data-jbar></i></div>
+      </div>
+      <ol class="track" data-track>
+        {
+          steps.map((s, i) => (
+            <li class="stepc">
+              <span class="stepc__n">{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+        <li class="stepc stepc--end">
+          <h3>Start with a free conversation</h3>
+          <p>No fees to talk. Bring your marksheets and your questions, and bring your parents too.</p>
+          <a class="btn btn--sun" href="#enquire">Book counselling <Icon name="arrow" class="arr" /></a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about" aria-labelledby="why-h">
+    <div class="wrap why">
+      <div class="why__media" data-rv>
+        <figure class="a"><Image src={toronto} alt="Toronto's CN Tower at dusk" widths={[480, 800]} sizes="(max-width: 900px) 55vw, 28vw" style="object-position:48% 40%" /></figure>
+        <figure class="b"><Image src={sydney} alt="Sydney Opera House at night" widths={[400, 640]} sizes="(max-width: 900px) 45vw, 22vw" /></figure>
+        <figure class="c"><Image src={usa} alt="New York skyline" widths={[400, 640]} sizes="(max-width: 900px) 45vw, 22vw" /></figure>
+        <div class="since"><b>{site.since}</b><span>Guiding families since</span></div>
+      </div>
+      <div>
+        <h2 class="h2" id="why-h" data-rv>A local team you can sit down with</h2>
+        <p class="lead" data-rv>
+          We have helped students win places in the USA, Canada, Australia, the UK, New Zealand, Singapore, Ireland and
+          Germany, and helped professionals and families settle in Canada and Australia.
+        </p>
+        <ul class="points">
+          <li data-rv><Icon name="users" /><b>Walk-in office</b><p>Meet us in Tolichowki, with your parents.</p></li>
+          <li data-rv><Icon name="shield" /><b>Honest advice</b><p>Based on your profile and budget, not a sales target.</p></li>
+          <li data-rv><Icon name="grad" /><b>Everything in one place</b><p>Admissions, visas, documents and coaching.</p></li>
+          <li data-rv><Icon name="clock" /><b>Straight timelines</b><p>Clear answers on dates, costs and your chances.</p></li>
+        </ul>
+        <a class="link" href="/about/" data-rv>More about ISTA <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coaching -->
+  <section class="coach" id="coaching" aria-labelledby="c-h">
+    <div class="wrap coach__in">
+      <div class="coach__intro">
+        <h2 class="h2" id="c-h" data-rv>IELTS & PTE, next door to your counsellor</h2>
+        <p class="lead" data-rv>Your score shapes which universities and visas are open to you. Prepare with trainers who know what your application needs.</p>
+      </div>
+      <article class="test" data-rv>
+        <b>IELTS</b>
+        <p>Academic and General Training. Listening, reading, writing and speaking practice with full mock tests.</p>
+        <a class="link" href="/services/ielts-coaching/">IELTS coaching <Icon name="arrow" /></a>
+      </article>
+      <article class="test" data-rv>
+        <b>PTE</b>
+        <p>PTE Academic preparation with timed computer-based practice on every task type and score feedback.</p>
+        <a class="link" href="/services/pte-training/">PTE training <Icon name="arrow" /></a>
+      </article>
+    </div>
+  </section>
+
+  <Enquiry />
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    overflow: hidden;
+    background: var(--navy);
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+  }
+  .hero__bg :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1.2s var(--ease), transform 7s linear;
+  }
+  .hero__bg :global(img.on) {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(6 18 32 / 0.88) 0%, rgb(6 18 32 / 0.62) 42%, rgb(6 18 32 / 0.15) 75%),
+      linear-gradient(0deg, rgb(6 18 32 / 0.85) 0%, rgb(6 18 32 / 0) 45%);
+  }
+  .hero__in {
+    position: relative;
+    z-index: 1;
+    padding-top: 190px;
+    padding-bottom: 40px;
+  }
+  h1 {
+    font-size: clamp(2.7rem, 1.2rem + 5vw, 6rem);
+    max-width: 13ch;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .country {
+    display: inline-block;
+    color: var(--sun);
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .country span {
+    display: inline-block;
+  }
+  .hero__lead {
+    margin-top: 24px;
+    max-width: 52ch;
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.25rem);
+    color: #d6e3ef;
+  }
+  .hero__fact {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    min-height: 1.6em;
+  }
+  .hero__fact::before {
+    content: "";
+    width: 22px;
+    height: 2px;
+    background: var(--sun);
+    flex: none;
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 40px;
+  }
+  .tab {
+    position: relative;
+    padding: 12px 16px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: rgb(255 255 255 / 0.1);
+    color: #dbe7f2;
+    font: 600 0.95rem/1 var(--font);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+  }
+  .tab:hover {
+    background: rgb(255 255 255 / 0.18);
+    color: #fff;
+  }
+  .tab[aria-pressed="true"] {
+    background: #fff;
+    color: var(--ink);
+  }
+  .tab :global(i) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--sun);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .quick {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1.1fr 1.1fr 1fr auto;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+    max-width: 980px;
+  }
+  .quick label {
+    display: grid;
+    gap: 2px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+  .quick label:hover,
+  .quick label:focus-within {
+    background: var(--mist);
+  }
+  .quick span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .quick input,
+  .quick select {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font: 500 1rem/1.5 var(--font);
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+    appearance: none;
+  }
+  .quick input::placeholder {
+    color: #5f7083;
+  }
+  .quick input[aria-invalid="true"] {
+    box-shadow: inset 0 -2px 0 #c0352b;
+  }
+  .quick .btn {
+    min-height: auto;
+    height: 100%;
+  }
+  .quick__err {
+    grid-column: 1 / -1;
+    margin: 0 14px 6px;
+    color: #b42318;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  @media (max-width: 900px) {
+    .quick {
+      grid-template-columns: 1fr 1fr;
+    }
+    .quick .btn {
+      grid-column: 1 / -1;
+      min-height: 54px;
+    }
+  }
+  @media (max-width: 560px) {
+    .quick {
+      grid-template-columns: 1fr;
+    }
+    .hero__in {
+      padding-top: 150px;
+    }
+    .tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-inline: calc(var(--g) * -1);
+      padding-inline: var(--g);
+    }
+    .tab {
+      flex: none;
+    }
+  }
+
+  /* Strip */
+  .strip {
+    border-bottom: 1px solid var(--line);
+  }
+  .strip ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .strip li {
+    padding: 28px 24px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .strip li + li {
+    border-left: 1px solid var(--line);
+  }
+  .strip li :global(svg) {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 10px;
+    background: var(--wash);
+    color: var(--blue);
+    flex: none;
+  }
+  .strip b {
+    display: block;
+    font-weight: 700;
+  }
+  .strip small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 1000px) {
+    .strip ul {
+      grid-template-columns: 1fr 1fr;
+    }
+    .strip li:nth-child(3) {
+      border-left: 0;
+    }
+    .strip li:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+  }
+  @media (max-width: 560px) {
+    .strip ul {
+      grid-template-columns: 1fr;
+    }
+    .strip li,
+    .strip li + li {
+      border-left: 0;
+      padding: 18px 0;
+    }
+    .strip li + li {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  /* Services list */
+  .svc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 clamp(40px, 6vw, 96px);
+    border-top: 1px solid var(--line);
+  }
+  .svc__item {
+    display: contents;
+  }
+  .svc__btn {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 26px 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: none;
+    color: var(--muted);
+    font: 600 clamp(1.35rem, 1rem + 1.2vw, 2.1rem) / 1.15 var(--font);
+    letter-spacing: -0.025em;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.35s var(--ease), padding-left 0.45s var(--ease);
+  }
+  .svc__btn:hover {
+    color: var(--ink);
+  }
+  .svc__btn :global(svg) {
+    flex: none;
+    color: var(--blue);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+  }
+  .svc__btn[aria-expanded="true"] {
+    color: var(--ink);
+    padding-left: 14px;
+  }
+  .svc__btn[aria-expanded="true"] :global(svg) {
+    opacity: 1;
+    transform: none;
+  }
+  .svc__panel {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    padding-top: 30px;
+  }
+  .svc__panel[hidden] {
+    display: none;
+  }
+  .svc__panel figure {
+    margin: 0 0 28px;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+  .svc__panel figure :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .svc__panel h3 {
+    font-size: 1.6rem;
+  }
+  .svc__panel > p {
+    margin-top: 12px;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .svc__panel .checks {
+    margin: 22px 0 26px;
+  }
+  .svc__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+  }
+  @media (max-width: 900px) {
+    .svc,
+    .svc__item {
+      display: block;
+    }
+    .svc__panel {
+      padding: 6px 0 30px;
+      border-bottom: 1px solid var(--line);
+    }
+    .svc__btn[aria-expanded="true"] {
+      border-bottom-color: transparent;
+      padding-left: 0;
+    }
+    .svc__panel figure {
+      display: none;
+    }
+  }
+
+  /* Destinations */
+  .dest {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: clamp(260px, 26vw, 340px);
+    gap: 18px;
+  }
+  .dest__card.wide {
+    grid-column: span 2;
+  }
+  .dest__card a {
+    position: relative;
+    display: block;
+    height: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    isolation: isolate;
+  }
+  .dest__card :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.9s var(--ease);
+  }
+  .dest__card a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(8 22 38 / 0) 35%, rgb(8 22 38 / 0.85) 100%);
+  }
+  .dest__card a:hover :global(img) {
+    transform: scale(1.05);
+  }
+  .dest__text {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 22px;
+    display: grid;
+    gap: 6px;
+  }
+  .dest__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .dest__name :global(svg) {
+    color: var(--sun);
+    transition: transform 0.4s var(--ease);
+  }
+  .dest__card a:hover .dest__name :global(svg) {
+    transform: translateX(5px);
+  }
+  .dest__line {
+    color: #dbe7f2;
+    font-size: 0.97rem;
+    max-width: 44ch;
+  }
+  @media (max-width: 900px) {
+    .dest {
+      grid-template-columns: 1fr 1fr;
+    }
+    .dest__card.wide {
+      grid-column: auto;
+    }
+    .dest__card:first-child,
+    .dest__card:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 600px) {
+    .dest {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 250px;
+    }
+  }
+
+  /* Journey */
+  .journey {
+    background: var(--navy);
+    color: var(--on-navy);
+    overflow: hidden;
+  }
+  .journey__pin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--section);
+  }
+  .journey__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .journey h2 {
+    color: #fff;
+  }
+  .journey .lead {
+    color: var(--on-navy-2);
+  }
+  .journey__bar {
+    height: 2px;
+    background: rgb(255 255 255 / 0.12);
+    margin-top: 48px;
+    position: relative;
+  }
+  .journey__bar i {
+    position: absolute;
+    inset: 0;
+    background: var(--sun);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .track {
+    list-style: none;
+    margin: 40px 0 0;
+    display: flex;
+    gap: 24px;
+    padding-left: max(var(--g), calc((100vw - var(--max)) / 2));
+    width: max-content;
+  }
+  .stepc {
+    width: min(440px, 78vw);
+    flex: none;
+    padding: 36px;
+    border-radius: 20px;
+    background: var(--navy-2);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+  }
+  .stepc__n {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: var(--sun);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+  .stepc h3 {
+    margin-top: auto;
+    padding-top: 60px;
+    font-size: 1.7rem;
+    color: #fff;
+  }
+  .stepc p {
+    margin-top: 12px;
+    color: var(--on-navy-2);
+  }
+  .stepc--end {
+    background: var(--blue);
+    box-shadow: none;
+  }
+  .stepc--end h3 {
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 2rem;
+  }
+  .stepc--end p {
+    color: #fff;
+  }
+  .stepc--end .btn {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  @media (max-width: 900px) {
+    .track {
+      flex-direction: column;
+      width: auto;
+      padding-inline: var(--g);
+    }
+    .stepc {
+      width: auto;
+      min-height: 0;
+    }
+    .stepc h3 {
+      padding-top: 28px;
+    }
+    .stepc--end .btn {
+      margin-top: 24px;
+    }
+    .journey__bar {
+      display: none;
+    }
+  }
+
+  /* About */
+  .why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .why__media {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    aspect-ratio: 1 / 1.05;
+  }
+  .why__media figure {
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .why__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .why__media .a {
+    grid-row: 1 / span 2;
+  }
+  .since {
+    position: absolute;
+    left: -18px;
+    bottom: -24px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    background: var(--sun);
+    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.35);
+  }
+  .since b {
+    display: block;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .since span {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .why .lead {
+    margin-top: 22px;
+  }
+  .points {
+    list-style: none;
+    padding: 0;
+    margin: 34px 0 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 28px;
+  }
+  .points b {
+    display: block;
+    font-size: 1.08rem;
+  }
+  .points p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+  .points :global(svg) {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 10px;
+    background: var(--wash);
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  @media (max-width: 900px) {
+    .why {
+      grid-template-columns: 1fr;
+    }
+    .since {
+      left: 12px;
+    }
+  }
+  @media (max-width: 520px) {
+    .points {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Coaching */
+  .coach {
+    background: var(--wash);
+  }
+  .coach__in {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 20px;
+    padding-block: var(--section);
+  }
+  .coach__intro {
+    padding-right: 20px;
+    display: grid;
+    gap: 20px;
+    align-content: center;
+  }
+  .test {
+    background: #fff;
+    border-radius: 20px;
+    padding: 34px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+  }
+  .test b {
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+    color: var(--blue);
+  }
+  .test p {
+    margin-top: 12px;
+    color: var(--ink-2);
+  }
+  .test .link {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+  @media (max-width: 1000px) {
+    .coach__in {
+      grid-template-columns: 1fr 1fr;
+    }
+    .coach__intro {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 560px) {
+    .coach__in {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { site } from "../data/site";
+  import { reduceMotion } from "../scripts/motion";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = reduceMotion();
+
+  /* Destination switcher */
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>(".tab")];
+  const imgs = [...document.querySelectorAll<HTMLImageElement>("[data-hero-bg] img")];
+  const word = document.querySelector<HTMLElement>("[data-country] span")!;
+  const fact = document.querySelector<HTMLElement>("[data-fact]")!;
+  const svcSel = document.querySelector<HTMLSelectElement>("[data-quick-service]")!;
+  const hero = document.querySelector<HTMLElement>("[data-hero]")!;
+  const DUR = 6;
+  let cur = 0;
+  let timer: number | undefined;
+  let bar: gsap.core.Tween | undefined;
+  let paused = false;
+
+  function run() {
+    clearTimeout(timer);
+    bar?.kill();
+    tabs.forEach((t) => ((t.querySelector("i") as HTMLElement).style.transform = "scaleX(0)"));
+    if (reduce || paused) return;
+    bar = gsap.fromTo(tabs[cur].querySelector("i"), { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" });
+    timer = window.setTimeout(() => show((cur + 1) % tabs.length), DUR * 1000);
+  }
+
+  function show(i: number) {
+    const prev = cur;
+    cur = i;
+    const { name = "", line = "" } = tabs[i].dataset;
+    tabs.forEach((t, k) => t.setAttribute("aria-pressed", String(k === i)));
+    imgs.forEach((im, k) => {
+      if (k === i) im.loading = "eager";
+      im.classList.toggle("on", k === i);
+    });
+    svcSel.selectedIndex = i;
+    if (!reduce && prev !== i) {
+      gsap
+        .timeline()
+        .to(word, { yPercent: -110, duration: 0.45, ease: "power3.in" })
+        .add(() => (word.textContent = name))
+        .fromTo(word, { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease: "power4.out" });
+      gsap.fromTo(fact, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.6, delay: 0.35, ease: "power3.out", onStart: () => void (fact.textContent = line) });
+    } else {
+      word.textContent = name;
+      fact.textContent = line;
+    }
+    run();
+  }
+
+  const pause = () => {
+    paused = true;
+    clearTimeout(timer);
+    bar?.pause();
+  };
+  hero.addEventListener("pointerenter", pause);
+  hero.addEventListener("focusin", pause);
+  hero.addEventListener("pointerleave", () => {
+    paused = false;
+    run();
+  });
+  tabs.forEach((t, k) => t.addEventListener("click", () => show(k)));
+  // Warm the next photo so the first crossfade is never blank.
+  imgs[1] && (imgs[1].loading = "eager");
+  run();
+
+  /* Quick form -> WhatsApp */
+  const quick = document.querySelector<HTMLFormElement>("[data-quick]")!;
+  quick.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = new FormData(quick);
+    const n = String(d.get("name") || "").trim();
+    const p = String(d.get("phone") || "").trim();
+    const okN = n.length > 1;
+    const okP = p.replace(/\D/g, "").length >= 8;
+    quick.querySelector("[name=name]")!.setAttribute("aria-invalid", String(!okN));
+    quick.querySelector("[name=phone]")!.setAttribute("aria-invalid", String(!okP));
+    (quick.querySelector("[data-quick-err]") as HTMLElement).hidden = okN && okP;
+    if (!okN || !okP) return;
+    const text = ["Hello ISTA, I'd like a free counselling session.", `Name: ${n}`, `Phone: ${p}`, `Interested in: ${d.get("service")}`].join("\n");
+    window.open(`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  });
+
+  /* Services list */
+  const svcBtns = [...document.querySelectorAll<HTMLButtonElement>(".svc__btn")];
+  const setSvc = (btn: HTMLButtonElement) => {
+    svcBtns.forEach((b) => {
+      const on = b === btn;
+      b.setAttribute("aria-expanded", String(on));
+      document.getElementById(b.getAttribute("aria-controls")!)!.hidden = !on;
+    });
+    const panel = document.getElementById(btn.getAttribute("aria-controls")!)!;
+    if (!reduce) gsap.fromTo(panel.children, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.05, ease: "power3.out" });
+    ScrollTrigger.refresh();
+  };
+  const wide = matchMedia("(min-width: 901px) and (pointer: fine)");
+  svcBtns.forEach((b) => {
+    b.addEventListener("click", () => setSvc(b));
+    b.addEventListener("pointerenter", () => {
+      if (wide.matches && b.getAttribute("aria-expanded") !== "true") setSvc(b);
+    });
+  });
+
+  if (!reduce) {
+    /* Hero entrance: headline words rise, then copy, tabs, form. */
+    const h = document.querySelector<HTMLElement>("[data-hero-h]")!;
+    const words: HTMLElement[] = [];
+    [...h.childNodes].forEach((node) => {
+      if (node.nodeType !== Node.TEXT_NODE) return;
+      const frag = document.createDocumentFragment();
+      (node.textContent || "").split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (!part.trim()) return void frag.append(" ");
+        const m = document.createElement("span");
+        m.style.cssText = "display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em";
+        m.setAttribute("aria-hidden", "true");
+        const w = document.createElement("span");
+        w.style.display = "inline-block";
+        w.textContent = part;
+        m.append(w);
+        frag.append(m);
+        words.push(w);
+      });
+      node.replaceWith(frag);
+    });
+    words.splice(words.length - 1, 0, word);
+
+    gsap
+      .timeline({ defaults: { ease: "power4.out" } })
+      .fromTo("[data-hero-bg]", { scale: 1.08, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.8 }, 0)
+      .fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: 1.05, stagger: 0.06 }, 0.2)
+      .fromTo("[data-hero-rv]", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.08 }, 0.6);
+
+    gsap.to("[data-hero-bg]", { yPercent: 14, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 } });
+
+    /* Journey: pinned horizontal track on desktop. */
+    ScrollTrigger.matchMedia({
+      "(min-width: 901px)": () => {
+        const track = document.querySelector<HTMLElement>("[data-track]")!;
+        const dist = () => track.scrollWidth - innerWidth + 80;
+        const st = { trigger: "[data-journey]", start: "top top", end: () => "+=" + dist(), scrub: 1 };
+        gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { ...st, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+        gsap.to("[data-jbar]", { scaleX: 1, ease: "none", scrollTrigger: st });
+      },
+    });
+  }
+</script>

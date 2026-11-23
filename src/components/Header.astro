@@ -1,0 +1,580 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo-mark.png";
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+import { destinations } from "../data/destinations";
+import { services } from "../data/services";
+
+interface Props {
+  /** Transparent over a dark full-bleed hero until the visitor scrolls. */
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+const path = Astro.url.pathname;
+const isActive = (prefix: string) => path.startsWith(prefix);
+---
+
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <span><Icon name="clock" size={15} /> {site.hours}</span>
+    <span class="topbar__addr"><Icon name="pin" size={15} /> Tolichowki, Hyderabad</span>
+    <a href={`mailto:${site.email}`}><Icon name="mail" size={15} /> {site.email}</a>
+  </div>
+</div>
+
+<header class:list={["hdr", { "hdr--overlay": overlay }]} data-hdr data-overlay={overlay ? "" : undefined}>
+  <div class="wrap hdr__in">
+    <a class="brand" href="/" aria-label={`${site.name}, home`}>
+      <Image src={logo} alt="" width={60} height={83} loading="eager" />
+      <span><b>ISTA</b><small>Consultancy Services</small></span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <div class="dd" data-dd>
+        <button class:list={["nav__a", { on: isActive("/study-abroad") }]} type="button" aria-expanded="false" data-dd-btn>
+          Study abroad <Icon name="chevron" size={16} />
+        </button>
+        <div class="dd__panel" data-dd-panel hidden>
+          {
+            destinations.map((d) => (
+              <a href={`/study-abroad/${d.slug}/`}>
+                <b>Study in {d.inName}</b>
+                <small>{d.line}</small>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="dd" data-dd>
+        <button class:list={["nav__a", { on: isActive("/services") }]} type="button" aria-expanded="false" data-dd-btn>
+          Services <Icon name="chevron" size={16} />
+        </button>
+        <div class="dd__panel" data-dd-panel hidden>
+          {
+            services.map((s) => (
+              <a href={`/services/${s.slug}/`}>
+                <b>{s.title}</b>
+                <small>{s.group}</small>
+              </a>
+            ))
+          }
+          <a href="/services/" class="dd__all">All services <Icon name="arrow" size={16} /></a>
+        </div>
+      </div>
+      <a class:list={["nav__a", { on: isActive("/about") }]} href="/about/">About</a>
+      <a class:list={["nav__a", { on: isActive("/contact") }]} href="/contact/">Contact</a>
+    </nav>
+
+    <a class="hdr__tel" href={`tel:${site.phone.tel}`}><Icon name="phone" size={18} /> {site.phone.display}</a>
+    <a class="btn btn--sun hdr__cta" href="/contact/">Free counselling</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" data-menu-open>
+      <Icon name="menu" size={24} />
+      <span class="vh">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<!-- Phone / tablet menu: full-screen drawer, outside the header so it is never clipped by it. -->
+<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu" hidden data-mnav data-lenis-prevent>
+  <div class="mnav__top">
+    <a class="brand" href="/" aria-label={`${site.name}, home`}>
+      <Image src={logo} alt="" width={60} height={83} />
+      <span><b>ISTA</b><small>Consultancy Services</small></span>
+    </a>
+    <button class="mnav__close" type="button" data-menu-close>
+      <Icon name="close" size={24} />
+      <span class="vh">Close menu</span>
+    </button>
+  </div>
+
+  <nav class="mnav__body" aria-label="Mobile">
+    <details class="acc" open={isActive("/study-abroad")}>
+      <summary>Study abroad <Icon name="chevron" /></summary>
+      <ul>
+        {destinations.map((d) => <li><a href={`/study-abroad/${d.slug}/`} aria-current={path.includes(`/${d.slug}/`) ? "page" : undefined}>{d.name}</a></li>)}
+      </ul>
+    </details>
+    <details class="acc" open={isActive("/services/") && path !== "/services/"}>
+      <summary>Services <Icon name="chevron" /></summary>
+      <ul>
+        {services.map((s) => <li><a href={`/services/${s.slug}/`} aria-current={path.includes(`/${s.slug}/`) ? "page" : undefined}>{s.title}</a></li>)}
+        <li><a href="/services/" class="acc__all">All services</a></li>
+      </ul>
+    </details>
+    <a class="mnav__link" href="/about/" aria-current={isActive("/about") ? "page" : undefined}>About</a>
+    <a class="mnav__link" href="/contact/" aria-current={isActive("/contact") ? "page" : undefined}>Contact</a>
+  </nav>
+
+  <div class="mnav__foot">
+    <a class="btn btn--sun" href="/contact/">Book free counselling <Icon name="arrow" class="arr" /></a>
+    <div class="mnav__quick">
+      <a class="btn btn--line" href={`tel:${site.phone.tel}`}><Icon name="phone" size={18} /> Call</a>
+      <a class="btn btn--line" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /> WhatsApp</a>
+    </div>
+    <p class="mnav__info"><Icon name="clock" size={15} /> {site.hours} · Tolichowki, Hyderabad</p>
+  </div>
+</div>
+
+<style>
+  .topbar {
+    background: var(--navy);
+    color: var(--on-navy-2);
+    font-size: 0.84rem;
+    position: relative;
+    z-index: 61;
+  }
+  .topbar__in {
+    display: flex;
+    justify-content: flex-end;
+    gap: 28px;
+    min-height: 38px;
+    align-items: center;
+  }
+  .topbar span,
+  .topbar a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .topbar a:hover {
+    color: #fff;
+  }
+
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgb(255 255 255 / 0.96);
+    backdrop-filter: blur(14px) saturate(1.4);
+    color: var(--ink);
+    box-shadow: 0 1px 0 var(--line);
+    transition: background-color 0.45s var(--ease), color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  }
+  .hdr--overlay {
+    position: fixed;
+    top: 38px;
+    left: 0;
+    right: 0;
+    background: transparent;
+    backdrop-filter: none;
+    color: #fff;
+    box-shadow: none;
+  }
+  .hdr--overlay.solid {
+    background: rgb(255 255 255 / 0.96);
+    backdrop-filter: blur(14px) saturate(1.4);
+    color: var(--ink);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .hdr__in {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 80px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex: none;
+  }
+  .brand img {
+    width: 30px;
+    height: auto;
+  }
+  .brand b {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .brand small {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-top: 3px;
+  }
+
+  .nav {
+    margin-left: auto;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .nav__a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: inherit;
+    font: 500 0.95rem/1.2 var(--font);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease);
+  }
+  .nav__a:hover,
+  .nav__a[aria-expanded="true"] {
+    background: rgb(127 140 160 / 0.16);
+  }
+  .hdr--overlay:not(.solid) .nav__a:hover,
+  .hdr--overlay:not(.solid) .nav__a[aria-expanded="true"] {
+    background: rgb(255 255 255 / 0.14);
+  }
+  .nav__a.on {
+    box-shadow: inset 0 -2px 0 var(--sun);
+    border-radius: 10px 10px 2px 2px;
+  }
+  .nav__a :global(svg) {
+    transition: transform 0.35s var(--ease);
+  }
+  .nav__a[aria-expanded="true"] :global(svg) {
+    transform: rotate(180deg);
+  }
+
+  .dd {
+    position: relative;
+  }
+  .dd__panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -12px;
+    width: 560px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 2px 6px rgb(11 27 46 / 0.06), 0 30px 60px -20px rgb(11 27 46 / 0.35);
+  }
+  .dd__panel::before {
+    /* Hover bridge so the pointer can travel from button to panel. */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 12px;
+  }
+  .dd__panel[hidden] {
+    display: none;
+  }
+  .dd__panel a {
+    display: grid;
+    gap: 2px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s var(--ease);
+  }
+  .dd__panel a:hover {
+    background: var(--mist);
+  }
+  .dd__panel b {
+    font-weight: 600;
+  }
+  .dd__panel small {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  .dd__all {
+    grid-column: 1 / -1;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    color: var(--blue);
+    font-weight: 600;
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 10px 10px !important;
+  }
+
+  .hdr__tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .hdr__cta {
+    min-height: 46px;
+    padding: 0 20px;
+  }
+  .menu-btn {
+    display: none;
+    margin-left: auto;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: rgb(127 140 160 / 0.16);
+    color: inherit;
+    place-items: center;
+    cursor: pointer;
+  }
+  .hdr--overlay:not(.solid) .menu-btn {
+    background: rgb(255 255 255 / 0.16);
+  }
+
+  /* Mobile drawer */
+  .mnav {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    background: var(--navy);
+    color: var(--on-navy);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 var(--g) max(24px, env(safe-area-inset-bottom));
+    animation: mnav-in 0.45s var(--ease);
+  }
+  .mnav[hidden] {
+    display: none;
+  }
+  @keyframes mnav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+  }
+  .mnav__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .mnav__top .brand {
+    color: #fff;
+  }
+  .mnav__close {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.1);
+    color: #fff;
+    cursor: pointer;
+  }
+  .mnav__body {
+    padding-block: 8px 24px;
+  }
+  .acc,
+  .mnav__link {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .acc summary,
+  .mnav__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-decoration: none;
+    list-style: none;
+    cursor: pointer;
+  }
+  .acc summary::-webkit-details-marker {
+    display: none;
+  }
+  .acc summary :global(svg) {
+    color: var(--sun);
+    transition: transform 0.35s var(--ease);
+  }
+  .acc[open] summary :global(svg) {
+    transform: rotate(180deg);
+  }
+  .acc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 16px;
+  }
+  .acc li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--on-navy-2);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .acc li a:hover,
+  .acc li a[aria-current="page"],
+  .mnav__link[aria-current="page"] {
+    color: var(--sun);
+  }
+  .acc__all {
+    color: #fff !important;
+    font-weight: 600 !important;
+  }
+  .mnav__foot {
+    margin-top: auto;
+    display: grid;
+    gap: 10px;
+  }
+  .mnav__foot .btn {
+    width: 100%;
+  }
+  .mnav__quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .btn--line {
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2);
+  }
+  .btn--line:hover {
+    background: rgb(255 255 255 / 0.14);
+  }
+  .mnav__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--on-navy-2);
+  }
+
+  @media (max-width: 1200px) {
+    .hdr__tel {
+      display: none;
+    }
+  }
+  @media (max-width: 1000px) {
+    .nav,
+    .hdr__cta {
+      display: none;
+    }
+    .menu-btn {
+      display: grid;
+    }
+  }
+  @media (min-width: 1001px) {
+    .mnav {
+      display: none !important;
+    }
+  }
+  @media (max-width: 640px) {
+    .topbar span {
+      display: none;
+    }
+    .topbar__in {
+      justify-content: center;
+    }
+    .hdr__in {
+      min-height: 70px;
+    }
+  }
+  @media (max-width: 380px) {
+    .acc ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const hdr = document.querySelector<HTMLElement>("[data-hdr]")!;
+  const mnav = document.querySelector<HTMLElement>("[data-mnav]")!;
+  const openBtn = document.querySelector<HTMLButtonElement>("[data-menu-open]")!;
+  const closeBtn = document.querySelector<HTMLButtonElement>("[data-menu-close]")!;
+  const overlay = hdr.hasAttribute("data-overlay");
+  type LenisLike = { stop(): void; start(): void };
+  const lenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
+
+  // The header only turns white once the visitor scrolls past the hero; opening menus never changes it.
+  const setSolid = () => {
+    if (!overlay) return;
+    const tb = document.querySelector<HTMLElement>(".topbar")?.offsetHeight ?? 0;
+    hdr.style.top = `${Math.max(0, tb - window.scrollY)}px`;
+    const hero = document.querySelector<HTMLElement>("[data-hero]");
+    const limit = hero ? hero.offsetHeight - 120 : 40;
+    hdr.classList.toggle("solid", window.scrollY > limit);
+  };
+  setSolid();
+  addEventListener("scroll", setSolid, { passive: true });
+
+  // Drawer
+  const setMenu = (open: boolean) => {
+    mnav.hidden = !open;
+    openBtn.setAttribute("aria-expanded", String(open));
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    if (open) {
+      lenis()?.stop();
+      closeBtn.focus();
+    } else {
+      lenis()?.start();
+    }
+  };
+  openBtn.addEventListener("click", () => setMenu(true));
+  closeBtn.addEventListener("click", () => {
+    setMenu(false);
+    openBtn.focus();
+  });
+  mnav.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("a")) setMenu(false);
+  });
+  matchMedia("(min-width: 1001px)").addEventListener("change", (e) => e.matches && setMenu(false));
+
+  // Desktop dropdowns: click to toggle, hover on fine pointers, close on outside click / Escape.
+  const dds = [...document.querySelectorAll<HTMLElement>("[data-dd]")];
+  const closeAll = (except?: HTMLElement) =>
+    dds.forEach((dd) => {
+      if (dd === except) return;
+      dd.querySelector("[data-dd-btn]")!.setAttribute("aria-expanded", "false");
+      (dd.querySelector("[data-dd-panel]") as HTMLElement).hidden = true;
+    });
+  const open = (dd: HTMLElement) => {
+    closeAll(dd);
+    dd.querySelector("[data-dd-btn]")!.setAttribute("aria-expanded", "true");
+    (dd.querySelector("[data-dd-panel]") as HTMLElement).hidden = false;
+  };
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  dds.forEach((dd) => {
+    const btn = dd.querySelector("[data-dd-btn]")!;
+    let t: number | undefined;
+    // With a mouse, hover already opened it, so a click keeps it open; on touch, click toggles.
+    btn.addEventListener("click", () => (!fine && btn.getAttribute("aria-expanded") === "true" ? closeAll() : open(dd)));
+    if (fine) {
+      dd.addEventListener("pointerenter", () => {
+        clearTimeout(t);
+        open(dd);
+      });
+      dd.addEventListener("pointerleave", () => {
+        t = window.setTimeout(() => closeAll(), 180);
+      });
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (!(e.target as HTMLElement).closest("[data-dd]")) closeAll();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    closeAll();
+    if (!mnav.hidden) {
+      setMenu(false);
+      openBtn.focus();
+    }
+  });
+</script>

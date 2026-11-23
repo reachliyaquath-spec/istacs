@@ -1,0 +1,234 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import Enquiry from "../../components/Enquiry.astro";
+import Icon from "../../components/Icon.astro";
+import { services } from "../../data/services";
+import { destinations } from "../../data/destinations";
+import toronto from "../../assets/photos/toronto.jpg";
+
+const groups = ["Immigration", "Visas & documents", "Coaching"] as const;
+---
+
+<Base
+  title="Our Services | Study Abroad, Immigration, Attestation, IELTS & PTE | ISTA"
+  description="Study abroad admissions, Australia and Canada immigration, certificate attestation, visit visas, and IELTS and PTE coaching from ISTA Consultancy Services, Hyderabad."
+>
+  <PageHero
+    title="Everything your move abroad needs"
+    lead="Admissions, visas, permanent residency, documents and test coaching, all handled by one team in Tolichowki."
+    img={toronto}
+    pos="50% 40%"
+    crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+  />
+
+  <!-- Study abroad -->
+  <section class="section" id="study-abroad">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" data-rv>Study abroad</h2>
+        <p class="lead" data-rv>Admissions and student visas for six destinations, from shortlisting your course to the day you fly.</p>
+      </div>
+      <ul class="dests">
+        {
+          destinations.map((d) => (
+            <li data-rv>
+              <a href={`/study-abroad/${d.slug}/`}>
+                <Image src={d.img} alt="" widths={[400, 640]} sizes="(max-width: 700px) 50vw, 16vw" style={`object-position:${d.pos}`} />
+                <span>{d.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {
+    groups.map((g, gi) => (
+      <section class:list={["section", { "section--mist": gi % 2 === 0 }]}>
+        <div class="wrap">
+          <h2 class="h2 grp__h" data-rv>{g}</h2>
+          <ul class="grp">
+            {services
+              .filter((s) => s.group === g)
+              .map((s) => (
+                <li data-rv>
+                  <a href={`/services/${s.slug}/`} class="svc">
+                    <figure>
+                      <Image src={s.img} alt="" widths={[480, 800]} sizes="(max-width: 900px) 100vw, 40vw" />
+                    </figure>
+                    <span class="svc__body">
+                      <span class="svc__title">
+                        <Icon name={s.icon} size={22} /> {s.title}
+                      </span>
+                      <span class="svc__text">{s.short}</span>
+                      <span class="svc__inc">
+                        {s.includes.slice(0, 3).map((i) => (
+                          <span>
+                            <Icon name="check" size={16} /> {i}
+                          </span>
+                        ))}
+                      </span>
+                      <span class="link">
+                        Learn more <Icon name="arrow" />
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  <Enquiry title="Not sure where to start?" lead="Tell us what you are planning and we will point you to the right service. The first conversation is always free." service="Not sure yet" />
+</Base>
+
+<style>
+  .dests {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+  }
+  .dests a {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    isolation: isolate;
+  }
+  .dests :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.9s var(--ease);
+  }
+  .dests a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(8 22 38 / 0) 45%, rgb(8 22 38 / 0.85));
+  }
+  .dests a:hover :global(img) {
+    transform: scale(1.06);
+  }
+  .dests span {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .grp__h {
+    margin-bottom: 36px;
+  }
+  .grp {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .svc {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    height: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: box-shadow 0.4s var(--ease);
+  }
+  .svc:hover {
+    box-shadow: 0 2px 6px rgb(11 27 46 / 0.06), 0 30px 60px -28px rgb(11 27 46 / 0.4);
+  }
+  .svc figure {
+    margin: 0;
+    overflow: hidden;
+  }
+  .svc figure :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease);
+  }
+  .svc:hover figure :global(img) {
+    transform: scale(1.05);
+  }
+  .svc__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+  }
+  .svc__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .svc__title :global(svg) {
+    color: var(--blue);
+  }
+  .svc__text {
+    color: var(--ink-2);
+  }
+  .svc__inc {
+    display: grid;
+    gap: 6px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .svc__inc span {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .svc__inc :global(svg) {
+    color: var(--blue);
+    margin-top: 3px;
+    flex: none;
+  }
+  .svc .link {
+    margin-top: auto;
+    padding-top: 8px;
+  }
+  @media (max-width: 1100px) {
+    .dests {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .grp {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .dests {
+      grid-template-columns: 1fr 1fr;
+    }
+    .svc {
+      grid-template-columns: 1fr;
+    }
+    .svc figure {
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

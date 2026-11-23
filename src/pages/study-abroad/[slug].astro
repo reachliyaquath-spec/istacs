@@ -1,0 +1,307 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import Enquiry from "../../components/Enquiry.astro";
+import Icon from "../../components/Icon.astro";
+import { destinations, type Destination } from "../../data/destinations";
+
+export function getStaticPaths() {
+  return destinations.map((d) => ({ params: { slug: d.slug }, props: { d } }));
+}
+
+const { d } = Astro.props as { d: Destination };
+const others = destinations.filter((o) => o.slug !== d.slug);
+const formCountry = d.slug === "uk" ? "UK" : d.slug === "usa" ? "USA" : d.name;
+
+const help = [
+  { icon: "users", title: "Counselling", text: `Is ${d.inName} right for you? We look at your marks, budget, goals and timeline first.` },
+  { icon: "grad", title: "Shortlisting", text: "Universities and courses that fit your profile, with realistic entry requirements." },
+  { icon: "book", title: "Applications", text: "Application forms, SOPs, LORs and test scores, prepared and checked before submission." },
+  { icon: "stamp", title: "Documents", text: "Financial papers and certificate attestation, organised the way the visa office expects." },
+  { icon: "shield", title: "Student visa", text: "Visa filing and interview preparation, explained step by step." },
+  { icon: "plane", title: "Pre-departure", text: "Accommodation, travel and what to expect when you arrive." },
+] as const;
+---
+
+<Base
+  title={`Study in ${d.inName} | Admissions & Student Visa | ISTA Consultancy Services`}
+  description={`Study in ${d.inName} with ISTA Consultancy Services, Hyderabad: course and university shortlisting, applications, documents and student visa guidance since 2013.`}
+>
+  <PageHero
+    title={`Study in ${d.inName}`}
+    lead={d.intro[0]}
+    img={d.img}
+    pos={d.pos}
+    crumbs={[{ label: "Home", href: "/" }, { label: "Study abroad" }, { label: d.name }]}
+  />
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="wrap ov">
+      <div>
+        <h2 class="h2" data-rv>Why study in {d.inName}?</h2>
+        <div class="prose ov__text" data-rv>
+          {d.intro.slice(1).map((p) => <p>{p}</p>)}
+        </div>
+        <ul class="checks ov__why">
+          {d.why.map((w) => <li data-rv><Icon name="check" />{w}</li>)}
+        </ul>
+      </div>
+
+      <aside class="facts" data-rv aria-label={`${d.name} at a glance`}>
+        <h3>At a glance</h3>
+        <dl>
+          <div><dt><Icon name="calendar" /> Intakes</dt><dd>{d.intakes}</dd></div>
+          <div><dt><Icon name="building" /> Where you can study</dt><dd>{d.institutions}</dd></div>
+          <div>
+            <dt><Icon name="grad" /> Popular courses</dt>
+            <dd><ul class="tags">{d.courses.map((c) => <li>{c}</li>)}</ul></dd>
+          </div>
+        </dl>
+        <p class="facts__note">Visa rules, fees and work rights change often. We confirm the current requirements for your case during counselling.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- How we help -->
+  <section class="section section--mist">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2" data-rv>How we help you get to {d.inName}</h2>
+        <p class="lead" data-rv>One counsellor guides you from your first question to the day you fly.</p>
+      </div>
+      <ol class="help">
+        {
+          help.map((h, i) => (
+            <li class="help__item" data-rv>
+              <span class="help__n">{String(i + 1).padStart(2, "0")}</span>
+              <Icon name={h.icon} size={26} />
+              <h3>{h.title}</h3>
+              <p>{h.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Other destinations -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2 others__h" data-rv>Compare other destinations</h2>
+      <ul class="others">
+        {
+          others.map((o) => (
+            <li data-rv>
+              <a href={`/study-abroad/${o.slug}/`}>
+                <Image src={o.img} alt="" widths={[400, 640]} sizes="(max-width: 700px) 100vw, 20vw" style={`object-position:${o.pos}`} />
+                <span>{o.name} <Icon name="arrow" size={18} /></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Enquiry title={`Plan your studies in ${d.inName}`} service="Study abroad" country={formCountry} />
+</Base>
+
+<style>
+  .ov {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .ov__text {
+    margin-top: 22px;
+  }
+  .ov__why {
+    margin-top: 30px;
+  }
+  .facts {
+    position: sticky;
+    top: 110px;
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius);
+    background: var(--navy);
+    color: var(--on-navy);
+  }
+  .facts h3 {
+    color: #fff;
+    font-size: 1.4rem;
+  }
+  dl {
+    margin: 22px 0 0;
+    display: grid;
+    gap: 20px;
+  }
+  dt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #fff;
+  }
+  dt :global(svg) {
+    color: var(--sun);
+  }
+  dd {
+    margin: 6px 0 0 30px;
+    color: var(--on-navy-2);
+  }
+  .tags {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tags li {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.09);
+    color: var(--on-navy);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .facts__note {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    font-size: 0.88rem;
+    color: var(--on-navy-2);
+  }
+
+  .help {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .help__item {
+    position: relative;
+    padding: 32px;
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+  .help__item > :global(svg) {
+    width: 52px;
+    height: 52px;
+    padding: 13px;
+    border-radius: 14px;
+    background: var(--wash);
+    color: var(--blue);
+  }
+  .help__n {
+    position: absolute;
+    top: 28px;
+    right: 30px;
+    font-weight: 700;
+    color: #9fb3c6;
+    font-variant-numeric: tabular-nums;
+  }
+  .help__item h3 {
+    margin-top: 22px;
+    font-size: 1.3rem;
+  }
+  .help__item p {
+    margin-top: 8px;
+    color: var(--ink-2);
+  }
+
+  .others__h {
+    margin-bottom: 36px;
+  }
+  .others {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+  .others a {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    isolation: isolate;
+  }
+  .others :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 0.9s var(--ease);
+  }
+  .others a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(8 22 38 / 0) 45%, rgb(8 22 38 / 0.85));
+  }
+  .others a:hover :global(img) {
+    transform: scale(1.06);
+  }
+  .others span {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .others span :global(svg) {
+    color: var(--sun);
+  }
+
+  @media (max-width: 1000px) {
+    .ov {
+      grid-template-columns: 1fr;
+    }
+    .facts {
+      position: static;
+    }
+    .help {
+      grid-template-columns: 1fr 1fr;
+    }
+    .others {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .help {
+      grid-template-columns: 1fr;
+    }
+    /* Swipeable row on phones: no orphan tile, no tall stack. */
+    .others {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: calc(var(--g) * -1);
+      padding-inline: var(--g);
+      scroll-padding-inline: var(--g);
+    }
+    .others li {
+      flex: 0 0 44%;
+      scroll-snap-align: start;
+    }
+  }
+</style>

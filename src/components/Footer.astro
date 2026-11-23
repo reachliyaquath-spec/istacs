@@ -1,0 +1,174 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo-mark.png";
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+import { destinations } from "../data/destinations";
+import { services } from "../data/services";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div class="foot__brand">
+      <a class="brand" href="/" aria-label={`${site.name}, home`}>
+        <Image src={logo} alt="" width={60} height={83} />
+        <span><b>ISTA</b><small>Consultancy Services</small></span>
+      </a>
+      <p>Overseas education and immigration guidance from Tolichowki, Hyderabad, since {site.since}.</p>
+      <a class="btn btn--sun" href="/contact/">Book free counselling <Icon name="arrow" class="arr" /></a>
+    </div>
+
+    <nav aria-label="Study abroad">
+      <h3>Study abroad</h3>
+      <ul>{destinations.map((d) => <li><a href={`/study-abroad/${d.slug}/`}>{d.name}</a></li>)}</ul>
+    </nav>
+
+    <nav aria-label="Services">
+      <h3>Services</h3>
+      <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}</ul>
+    </nav>
+
+    <div>
+      <h3>Contact</h3>
+      <ul class="foot__contact">
+        <li><a href={`tel:${site.phone.tel}`}><Icon name="phone" size={16} /> {site.phone.display}</a></li>
+        <li><a href={`tel:${site.landline.tel}`}><Icon name="phone" size={16} /> {site.landline.display}</a></li>
+        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={16} /> {site.email}</a></li>
+        <li><span><Icon name="clock" size={16} /> {site.hours}</span></li>
+        <li><span><Icon name="pin" size={16} /> Tolichowki, Hyderabad</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap foot__base">
+    <p>© {year} {site.name}. All rights reserved.</p>
+    <nav aria-label="Company"><a href="/about/">About</a><a href="/services/">Services</a><a href="/contact/">Contact</a></nav>
+    <p>Visa and admission decisions are made by the embassies and institutions concerned.</p>
+  </div>
+</footer>
+
+<a class="wa" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" aria-label="Chat with ISTA on WhatsApp">
+  <Icon name="whatsapp" size={28} />
+</a>
+
+<style>
+  .foot {
+    background: var(--navy);
+    color: var(--on-navy-2);
+    font-size: 0.95rem;
+    padding-top: clamp(64px, 8vw, 104px);
+  }
+  .foot__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.1fr 1.2fr;
+    gap: 40px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-decoration: none;
+  }
+  .brand img {
+    width: 30px;
+    height: auto;
+  }
+  .brand b {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .brand small {
+    display: block;
+    font-size: 0.76rem;
+    margin-top: 3px;
+    color: var(--on-navy-2);
+  }
+  .foot__brand p {
+    margin: 18px 0 24px;
+    max-width: 34ch;
+  }
+  h3 {
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 0;
+    margin-bottom: 16px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  a {
+    text-decoration: none;
+    transition: color 0.3s var(--ease);
+  }
+  ul a:hover,
+  .foot__base a:hover {
+    color: #fff;
+  }
+  .foot__contact a,
+  .foot__contact span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .foot__contact :global(svg) {
+    color: var(--sun);
+  }
+  .foot__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 64px;
+    padding-block: 22px 32px;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    font-size: 0.85rem;
+  }
+  .foot__base nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  .wa {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #1fa855;
+    color: #fff;
+    box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.45);
+    transition: transform 0.4s var(--ease);
+  }
+  .wa:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1000px) {
+    .foot__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .foot__brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 520px) {
+    .foot__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
