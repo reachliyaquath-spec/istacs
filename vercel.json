@@ -1,0 +1,104 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/australia.html",
+      "destination": "/study-abroad/australia/",
+      "permanent": true
+    },
+    {
+      "source": "/uk.html",
+      "destination": "/study-abroad/uk/",
+      "permanent": true
+    },
+    {
+      "source": "/usa.html",
+      "destination": "/study-abroad/usa/",
+      "permanent": true
+    },
+    {
+      "source": "/canada.html",
+      "destination": "/study-abroad/canada/",
+      "permanent": true
+    },
+    {
+      "source": "/newzealand.html",
+      "destination": "/study-abroad/new-zealand/",
+      "permanent": true
+    },
+    {
+      "source": "/europe.html",
+      "destination": "/study-abroad/europe/",
+      "permanent": true
+    },
+    {
+      "source": "/australia-immigration.html",
+      "destination": "/services/australia-immigration/",
+      "permanent": true
+    },
+    {
+      "source": "/canada-immigration.html",
+      "destination": "/services/canada-immigration/",
+      "permanent": true
+    },
+    {
+      "source": "/certificate-attestation.html",
+      "destination": "/services/certificate-attestation/",
+      "permanent": true
+    },
+    {
+      "source": "/certificateattestation.html",
+      "destination": "/services/certificate-attestation/",
+      "permanent": true
+    },
+    {
+      "source": "/visit-visa-assistance.html",
+      "destination": "/services/visit-visa-assistance/",
+      "permanent": true
+    },
+    {
+      "source": "/ilets.html",
+      "destination": "/services/ielts-coaching/",
+      "permanent": true
+    },
+    {
+      "source": "/pte.html",
+      "destination": "/services/pte-training/",
+      "permanent": true
+    },
+    {
+      "source": "/enquiry.html",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact/",
+      "permanent": true
+    },
+    {
+      "source": "/websolutions.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
