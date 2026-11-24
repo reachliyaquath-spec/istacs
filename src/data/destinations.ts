@@ -32,7 +32,7 @@ export const destinations: Destination[] = [
     img: sydney,
     imgAlt: "Sydney Opera House and Harbour Bridge at night",
     pos: "60% 50%",
-    line: "Universities and vocational colleges, with post-study work options.",
+    line: "Universities and vocational colleges, with post-study work options",
     intro: [
       "Australia is one of the most popular choices for students from Hyderabad: English-speaking, multicultural, and home to universities that rank well worldwide.",
       "You can choose between universities and vocational (VET/TAFE) colleges, and many courses are built around practical, job-ready skills.",
@@ -54,7 +54,7 @@ export const destinations: Destination[] = [
     img: london,
     imgAlt: "London's Houses of Parliament and the Thames at dusk",
     pos: "50% 50%",
-    line: "Many master's degrees are completed in just one year.",
+    line: "Many master's degrees are completed in just one year",
     intro: [
       "The UK has some of the world's oldest universities, and many master's degrees take only one year.",
       "Many taught master's programmes run for one year, which keeps the total cost and time away from home lower than in many other countries.",
@@ -76,7 +76,7 @@ export const destinations: Destination[] = [
     img: usa,
     imgAlt: "New York skyline at sunset",
     pos: "50% 40%",
-    line: "Bachelor's, master's and community college pathways.",
+    line: "Bachelor's, master's and community college pathways",
     intro: [
       "The USA has the largest number of universities in the world, from major research universities to smaller colleges and community colleges.",
       "Its flexible system lets you explore subjects before choosing a major, and STEM programmes are especially strong.",
@@ -98,7 +98,7 @@ export const destinations: Destination[] = [
     img: toronto,
     imgAlt: "Toronto's CN Tower and waterfront at dusk",
     pos: "50% 40%",
-    line: "Universities and colleges, and a route many later take to PR.",
+    line: "Universities and colleges, and a route many later take to PR",
     intro: [
       "Canada has universities for degrees and public colleges for shorter, career-focused diplomas.",
       "Many graduates work in Canada after studying, and some later apply for permanent residency. We handle both the study application and, later, the PR application.",
@@ -120,7 +120,7 @@ export const destinations: Destination[] = [
     img: auckland,
     imgAlt: "Auckland skyline at night",
     pos: "52% 60%",
-    line: "Universities and institutes of technology in a welcoming country.",
+    line: "Universities and institutes of technology in a welcoming country",
     intro: [
       "New Zealand has eight universities, plus institutes of technology that focus on practical, applied courses.",
       "Classes are often smaller than in larger countries, and the two main intakes are in February and July.",
@@ -142,7 +142,7 @@ export const destinations: Destination[] = [
     img: europe,
     imgAlt: "Brandenburg Gate, Berlin",
     pos: "50% 45%",
-    line: "Germany, Ireland and more, including low-tuition options.",
+    line: "Germany, Ireland and more, including low-tuition options",
     intro: [
       "Europe covers many countries. We most often help students with Germany and Ireland, and with other countries on request.",
       "Germany's public universities charge low or no tuition for many programmes, while Ireland offers English-taught degrees and a strong technology sector.",

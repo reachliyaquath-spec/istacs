@@ -37,12 +37,6 @@ export function initMotion() {
   const phItems = document.querySelectorAll("[data-ph-rv]");
   if (phItems.length) {
     gsap.fromTo(phItems, { y: 28, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.09, ease: "power4.out", delay: 0.1 });
-    gsap.fromTo("[data-ph-img]", { scale: 1.08 }, { scale: 1, duration: 1.8, ease: "power3.out" });
-    gsap.to("[data-ph-img]", {
-      yPercent: -8,
-      ease: "none",
-      scrollTrigger: { trigger: "[data-hero]", start: "top top", end: "bottom top", scrub: 1 },
-    });
   }
 
   // Section reveals, batched so neighbours stagger together.

@@ -6,10 +6,7 @@ import Enquiry from "../components/Enquiry.astro";
 import { site } from "../data/site";
 import { destinations } from "../data/destinations";
 
-import london from "../assets/photos/london.jpg";
 import toronto from "../assets/photos/toronto.jpg";
-import europe from "../assets/photos/europe.jpg";
-import auckland from "../assets/photos/auckland.jpg";
 import usa from "../assets/photos/usa.jpg";
 import sydney from "../assets/photos/sydney.jpg";
 
@@ -19,8 +16,6 @@ const svc = [
     head: "From shortlist to student visa",
     text: "We match your marks, budget and goals to universities and colleges in Australia, the UK, USA, Canada, New Zealand and Europe, then manage every application.",
     items: ["Country, course and university shortlisting", "Applications, SOPs and offer letters", "Student visa filing and interview preparation"],
-    img: london,
-    alt: "London's Houses of Parliament at dusk",
     href: "/study-abroad/australia/",
     cta: "Explore study destinations",
   },
@@ -29,8 +24,6 @@ const svc = [
     head: "Permanent residency in Australia or Canada",
     text: "For skilled professionals and families who want to settle in Australia or Canada. We check your points and eligibility before you pay for assessments or applications.",
     items: ["Eligibility and points assessment", "Skills assessment and document preparation", "Application filing and follow-up"],
-    img: toronto,
-    alt: "Toronto skyline at dusk",
     href: "/services/canada-immigration/",
     cta: "Canada immigration",
     cta2: { label: "Australia immigration", href: "/services/australia-immigration/" },
@@ -40,8 +33,6 @@ const svc = [
     head: "Documents ready for use abroad",
     text: "Educational, personal and commercial documents attested end to end, so you are not chasing offices in between classes or work.",
     items: ["Degree and school certificates", "Birth, marriage and personal documents", "Apostille and embassy attestation"],
-    img: europe,
-    alt: "Brandenburg Gate, Berlin",
     href: "/services/certificate-attestation/",
     cta: "About attestation",
   },
@@ -50,8 +41,6 @@ const svc = [
     head: "Visiting family or travelling",
     text: "Tourist and family-visit applications, with your forms and supporting documents checked before you submit.",
     items: ["Forms and supporting documents", "Appointment and biometrics booking", "Pre-submission document check"],
-    img: auckland,
-    alt: "Auckland skyline at night",
     href: "/services/visit-visa-assistance/",
     cta: "About visit visas",
   },
@@ -60,8 +49,6 @@ const svc = [
     head: "The score your application needs",
     text: "Classroom coaching and mock tests in our Tolichowki office, timed around your intake and application deadlines.",
     items: ["IELTS Academic and General Training", "PTE Academic practice on every task type", "Full mock tests with feedback"],
-    img: usa,
-    alt: "New York skyline at sunset",
     href: "/services/ielts-coaching/",
     cta: "IELTS coaching",
     cta2: { label: "PTE training", href: "/services/pte-training/" },
@@ -101,7 +88,7 @@ const steps = [
 
     <div class="wrap hero__in">
       <h1 id="hero-h" data-hero-h aria-label="Study, work or settle abroad">
-        Study, work or settle in <span class="country" data-country><span>{destinations[0].inName}</span></span>.
+        Study, work or settle in <span class="country" data-country><span>{destinations[0].inName}</span></span>
       </h1>
       <p class="hero__lead" data-hero-rv>
         Admissions, student visas, Australia and Canada PR, attestation, visit visas and IELTS/PTE classes. From our office in
@@ -160,9 +147,6 @@ const steps = [
                 {s.title} <Icon name="arrow" size={28} />
               </button>
               <div class="svc__panel" id={`svc-p${i}`} role="region" aria-labelledby={`svc-b${i}`} hidden={i !== 0}>
-                <figure>
-                  <Image src={s.img} alt={s.alt} widths={[640, 960]} sizes="(max-width: 900px) 100vw, 45vw" />
-                </figure>
                 <h3>{s.head}</h3>
                 <p>{s.text}</p>
                 <ul class="checks">
@@ -307,12 +291,10 @@ const steps = [
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.06);
-    transition: opacity 1.2s var(--ease), transform 7s linear;
+    transition: opacity 1.2s var(--ease);
   }
   .hero__bg :global(img.on) {
     opacity: 1;
-    transform: scale(1);
   }
   .hero::after {
     content: "";
@@ -507,17 +489,16 @@ const steps = [
     border-left: 1px solid var(--line);
   }
   .strip li :global(svg) {
-    width: 40px;
-    height: 40px;
-    padding: 9px;
-    border-radius: 10px;
-    background: var(--wash);
-    color: var(--blue);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    color: var(--muted);
     flex: none;
   }
   .strip b {
     display: block;
-    font-weight: 700;
+    font-weight: 600;
   }
   .strip small {
     display: block;
@@ -687,9 +668,6 @@ const steps = [
     z-index: -1;
     background: linear-gradient(180deg, rgb(8 22 38 / 0) 35%, rgb(8 22 38 / 0.85) 100%);
   }
-  .dest__card a:hover :global(img) {
-    transform: scale(1.05);
-  }
   .dest__text {
     position: absolute;
     left: 24px;
@@ -703,7 +681,7 @@ const steps = [
     align-items: center;
     gap: 10px;
     font-size: 1.45rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.02em;
   }
   .dest__name :global(svg) {
@@ -797,13 +775,14 @@ const steps = [
   .stepc__n {
     display: grid;
     place-items: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-    background: var(--sun);
-    color: var(--ink);
-    font-weight: 800;
-    font-size: 1.3rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+    color: var(--on-navy-2);
+    font-weight: 500;
+    font-size: 1.05rem;
+    font-variant-numeric: tabular-nums;
   }
   .stepc h3 {
     margin-top: auto;
@@ -887,13 +866,13 @@ const steps = [
     bottom: -24px;
     padding: 20px 24px;
     border-radius: 16px;
-    background: var(--sun);
-    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.35);
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(11 27 46 / 0.06), 0 16px 32px -20px rgb(11 27 46 / 0.35);
   }
   .since b {
     display: block;
     font-size: 2.6rem;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1;
     letter-spacing: -0.03em;
   }
@@ -922,12 +901,11 @@ const steps = [
     font-size: 0.97rem;
   }
   .points :global(svg) {
-    width: 40px;
-    height: 40px;
-    padding: 9px;
-    border-radius: 10px;
-    background: var(--wash);
-    color: var(--blue);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    color: var(--muted);
     margin-bottom: 12px;
   }
   @media (max-width: 900px) {
@@ -1130,11 +1108,10 @@ const steps = [
 
     gsap
       .timeline({ defaults: { ease: "power4.out" } })
-      .fromTo("[data-hero-bg]", { scale: 1.08, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.8 }, 0)
+      .fromTo("[data-hero-bg]", { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2 }, 0)
       .fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: 1.05, stagger: 0.06 }, 0.2)
       .fromTo("[data-hero-rv]", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.08 }, 0.6);
 
-    gsap.to("[data-hero-bg]", { yPercent: 14, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 } });
 
     /* Journey: pinned horizontal track on desktop. */
     ScrollTrigger.matchMedia({

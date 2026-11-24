@@ -66,7 +66,7 @@ h3 {
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
-  font-weight: 700;
+  font-weight: 600;
 }
 p {
   text-wrap: pretty;
@@ -215,14 +215,12 @@ a {
 }
 .checks li > svg {
   flex: none;
-  width: 24px;
-  height: 24px;
-  padding: 4px;
-  margin-top: 1px;
-  border-radius: 50%;
-  background: var(--sun);
-  color: var(--ink);
-  stroke-width: 2.4;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  color: currentColor;
+  opacity: 0.55;
+  stroke-width: 2;
 }
 
 /* Cards */

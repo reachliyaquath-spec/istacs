@@ -192,18 +192,17 @@ const help = [
     box-shadow: var(--shadow);
   }
   .help__item > :global(svg) {
-    width: 52px;
-    height: 52px;
-    padding: 13px;
-    border-radius: 14px;
-    background: var(--wash);
-    color: var(--blue);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    color: var(--muted);
   }
   .help__n {
     position: absolute;
     top: 28px;
     right: 30px;
-    font-weight: 700;
+    font-weight: 600;
     color: #9fb3c6;
     font-variant-numeric: tabular-nums;
   }
@@ -253,9 +252,6 @@ const help = [
     z-index: -1;
     background: linear-gradient(180deg, rgb(8 22 38 / 0) 45%, rgb(8 22 38 / 0.85));
   }
-  .others a:hover :global(img) {
-    transform: scale(1.06);
-  }
   .others span {
     position: absolute;
     left: 18px;
@@ -264,7 +260,7 @@ const help = [
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.1rem;
   }
   .others span :global(svg) {

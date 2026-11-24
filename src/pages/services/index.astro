@@ -122,15 +122,12 @@ const groups = ["Immigration", "Visas & documents", "Coaching"] as const;
     z-index: -1;
     background: linear-gradient(180deg, rgb(8 22 38 / 0) 45%, rgb(8 22 38 / 0.85));
   }
-  .dests a:hover :global(img) {
-    transform: scale(1.06);
-  }
   .dests span {
     position: absolute;
     left: 16px;
     right: 16px;
     bottom: 14px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.1rem;
   }
 
@@ -169,9 +166,6 @@ const groups = ["Immigration", "Visas & documents", "Coaching"] as const;
     object-fit: cover;
     transition: transform 0.9s var(--ease);
   }
-  .svc:hover figure :global(img) {
-    transform: scale(1.05);
-  }
   .svc__body {
     display: flex;
     flex-direction: column;
@@ -183,11 +177,11 @@ const groups = ["Immigration", "Visas & documents", "Coaching"] as const;
     align-items: center;
     gap: 10px;
     font-size: 1.35rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.02em;
   }
   .svc__title :global(svg) {
-    color: var(--blue);
+    color: var(--muted);
   }
   .svc__text {
     color: var(--ink-2);
