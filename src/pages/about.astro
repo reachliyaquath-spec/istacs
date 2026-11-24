@@ -9,10 +9,10 @@ import london from "../assets/photos/london.jpg";
 import sydney from "../assets/photos/sydney.jpg";
 
 const values = [
-  { icon: "shield", title: "Honest advice", text: "We recommend what fits your profile and budget, and we tell you plainly when something is unlikely to work." },
-  { icon: "users", title: "Families welcome", text: "Big decisions are family decisions. Parents are always welcome at counselling sessions." },
-  { icon: "grad", title: "One team, every step", text: "Admissions, visas, documents and coaching under one roof, so nothing falls between offices." },
-  { icon: "clock", title: "Clear timelines", text: "We map intakes, test dates and deadlines early, so you are never rushing at the last minute." },
+  { icon: "shield", title: "Plain answers", text: "If a country, course or visa route is unlikely to work for your profile, we tell you before you pay for it." },
+  { icon: "users", title: "Families welcome", text: "Parents can come to counselling sessions, and many do." },
+  { icon: "grad", title: "One office", text: "Admissions, visas, attestation and IELTS/PTE classes are all handled from Tolichowki." },
+  { icon: "clock", title: "Intakes and deadlines", text: "We plan backwards from the intake you want, so test dates and applications fit." },
 ] as const;
 
 const countries = ["USA", "Canada", "Australia", "United Kingdom", "New Zealand", "Singapore", "Ireland", "Germany"];
@@ -24,7 +24,7 @@ const countries = ["USA", "Canada", "Australia", "United Kingdom", "New Zealand"
 >
   <PageHero
     title="Guiding Hyderabad families abroad since 2013"
-    lead="ISTA Consultancy Services helps students and families plan, apply and move abroad, with honest advice and one team for every step."
+    lead="Admissions, visas, PR, attestation and IELTS/PTE classes for students and families, from one office in Tolichowki."
     img={london}
     crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
   />
@@ -36,15 +36,12 @@ const countries = ["USA", "Canada", "Australia", "United Kingdom", "New Zealand"
         <div class="prose story__text" data-rv>
           <p>
             ISTA Consultancy Services has been working in overseas education and immigration since {site.since}. From our office
-            in Tolichowki, we have built a reputation for careful, high-quality guidance and services.
+            in Tolichowki, we work with students, families and professionals across Hyderabad.
+            {/* PLACEHOLDER: who founded ISTA, and why. Ask ISTA. */}
           </p>
           <p>
             We have helped many students win admission to universities and colleges abroad, and helped families and individual
             professionals immigrate to Canada and Australia.
-          </p>
-          <p>
-            Our results come from paying close attention to education and immigration trends and to the opportunities they
-            open up for students and professionals, then finding what is genuinely best for each person who walks in.
           </p>
         </div>
       </div>
@@ -68,7 +65,7 @@ const countries = ["USA", "Canada", "Australia", "United Kingdom", "New Zealand"
     <div class="wrap">
       <div class="section-head">
         <h2 class="h2" data-rv>How we work</h2>
-        <p class="lead" data-rv>Four things you can expect from us, whatever you need help with.</p>
+        <p class="lead" data-rv>What to expect when you work with us.</p>
       </div>
       <ul class="vals">
         {
@@ -84,7 +81,7 @@ const countries = ["USA", "Canada", "Australia", "United Kingdom", "New Zealand"
     </div>
   </section>
 
-  <Enquiry title="Come and meet us" lead="Visit our Tolichowki office, call, or send your details and we will get back to you within one working day." />
+  <Enquiry title="Come and meet us" lead="Visit our Tolichowki office, call, or send your details on WhatsApp." />
 </Base>
 
 <style>

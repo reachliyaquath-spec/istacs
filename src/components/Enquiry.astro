@@ -12,8 +12,8 @@ interface Props {
   headingLevel?: "h1" | "h2";
 }
 const {
-  title = "Talk to a counsellor, free",
-  lead = "Send your details and we will reply on WhatsApp or call you back, usually within one working day.",
+  title = "Talk to a counsellor",
+  lead = "Send your details and we will reply on WhatsApp or call you back during office hours.",
   service = "Study abroad",
   country = "Not decided",
   id = "enquire",
@@ -73,7 +73,7 @@ const Heading = headingLevel;
     </div>
 
     <form class="form" data-enquiry novalidate data-rv>
-      <h3>Book a free counselling session</h3>
+      <h3>Book a counselling session</h3>
       <div class="f">
         <label for={`${id}-name`}>Your name</label>
         <input id={`${id}-name`} name="name" autocomplete="name" data-field="name" />
@@ -291,7 +291,7 @@ const Heading = headingLevel;
       }
 
       const lines = [
-        "Hello ISTA, I'd like a free counselling session.",
+        "Hello ISTA, I'd like to book a counselling session.",
         `Name: ${name}`,
         `Phone: ${phone}`,
         `Help with: ${d.get("service")}`,

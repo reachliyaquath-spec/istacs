@@ -40,7 +40,7 @@ export const destinations: Destination[] = [
     why: [
       "Globally ranked universities in every major city",
       "Practical, industry-linked courses",
-      "Large, welcoming Indian community",
+      "Some courses also start in November",
       "Post-study work options for eligible graduates",
     ],
     courses: ["IT & computer science", "Engineering", "Business & accounting", "Nursing & health", "Data science", "Hospitality"],
@@ -56,11 +56,11 @@ export const destinations: Destination[] = [
     pos: "50% 50%",
     line: "Many master's degrees are completed in just one year.",
     intro: [
-      "The UK is home to some of the world's oldest and most respected universities, and its degrees are recognised everywhere.",
+      "The UK has some of the world's oldest universities, and many master's degrees take only one year.",
       "Many taught master's programmes run for one year, which keeps the total cost and time away from home lower than in many other countries.",
     ],
     why: [
-      "Degrees recognised worldwide",
+      "January intake at many universities",
       "One-year master's programmes",
       "Wide choice of universities across the country",
       "Post-study work options for eligible graduates",
@@ -100,11 +100,11 @@ export const destinations: Destination[] = [
     pos: "50% 40%",
     line: "Universities and colleges, and a route many later take to PR.",
     intro: [
-      "Canada combines high-quality education with a safe, welcoming society, and it consistently ranks among the best countries to live in.",
-      "Alongside universities, Canada's colleges offer career-focused diplomas, and many graduates go on to work and later apply for permanent residency.",
+      "Canada has universities for degrees and public colleges for shorter, career-focused diplomas.",
+      "Many graduates work in Canada after studying, and some later apply for permanent residency. We handle both the study application and, later, the PR application.",
     ],
     why: [
-      "Safe, multicultural cities",
+      "January and May intakes as well as September",
       "Career-focused college diplomas as well as degrees",
       "Post-study work options for eligible graduates",
       "A pathway many students later take to PR",
@@ -122,13 +122,13 @@ export const destinations: Destination[] = [
     pos: "52% 60%",
     line: "Universities and institutes of technology in a welcoming country.",
     intro: [
-      "New Zealand offers a high standard of education in a calm, safe and friendly setting, with smaller class sizes than many larger countries.",
-      "All of its universities are well regarded internationally, and its institutes of technology focus on practical, applied learning.",
+      "New Zealand has eight universities, plus institutes of technology that focus on practical, applied courses.",
+      "Classes are often smaller than in larger countries, and the two main intakes are in February and July.",
     ],
     why: [
       "Every university internationally ranked",
       "Smaller classes and personal attention",
-      "Safe, friendly and relaxed lifestyle",
+      "February and July intakes",
       "Post-study work options for eligible graduates",
     ],
     courses: ["IT", "Engineering", "Business", "Agriculture & environment", "Hospitality & tourism", "Health"],
@@ -144,14 +144,14 @@ export const destinations: Destination[] = [
     pos: "50% 45%",
     line: "Germany, Ireland and more, including low-tuition options.",
     intro: [
-      "Europe offers excellent education across many countries. We most often help students with Germany and Ireland, and with other European options on request.",
+      "Europe covers many countries. We most often help students with Germany and Ireland, and with other countries on request.",
       "Germany's public universities charge low or no tuition for many programmes, while Ireland offers English-taught degrees and a strong technology sector.",
     ],
     why: [
       "Low-tuition public universities in Germany",
       "English-taught programmes in many countries",
       "Strong engineering and technology industries",
-      "Travel across Europe during your studies",
+      "Ireland: main intake in September",
     ],
     courses: ["Mechanical & automotive engineering", "Computer science", "Data science", "Business", "Pharmacy & life sciences", "Renewable energy"],
     intakes: "Germany: winter (October) and summer (April) semesters. Ireland: mainly September.",

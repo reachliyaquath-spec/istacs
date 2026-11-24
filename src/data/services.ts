@@ -33,8 +33,8 @@ export const services: Service[] = [
     imgAlt: "Sydney Opera House and Harbour Bridge at night",
     group: "Immigration",
     intro: [
-      "Australia stands apart for its high standard of living, strong work culture and opportunities for skilled people. Its points-based skilled migration programme lets professionals apply for permanent residency based on their age, qualifications, experience and English score.",
-      "We start with an honest eligibility check, so you know where you stand before you spend money on assessments or applications.",
+      "Australia's skilled migration programme is points-based. You score points for your age, qualifications, work experience and English test result, and those points decide whether you can apply for permanent residency.",
+      "We start by working out your points, so you know where you stand before you pay for skills assessments or applications.",
     ],
     forWho: ["Skilled professionals in occupations Australia needs", "Families planning to move together", "Graduates with work experience"],
     includes: ["Eligibility and points assessment", "Occupation and skills assessment guidance", "IELTS / PTE preparation for the score you need", "Expression of interest and visa application", "Document checklist and review"],
@@ -49,20 +49,20 @@ export const services: Service[] = [
   {
     slug: "canada-immigration",
     title: "Canada Immigration",
-    short: "Permanent residency in Canada, with the same rights and benefits most Canadian citizens enjoy.",
+    short: "Permanent residency in Canada through Express Entry or a provincial nominee programme.",
     icon: "home",
     img: toronto,
     imgAlt: "Toronto skyline at dusk",
     group: "Immigration",
     intro: [
-      "Canadian permanent residents enjoy most of the same rights and benefits as citizens, including healthcare, education and the freedom to live and work anywhere in Canada, and residency requirements are flexible.",
-      "We help you find the right route, whether federal skilled programmes or provincial nominee programmes, and prepare a strong, complete application.",
+      "Canadian permanent residents can live and work anywhere in Canada and use public healthcare and education.",
+      "We work out which route fits your profile, Express Entry or a provincial nominee programme, and prepare a complete application.",
     ],
     forWho: ["Skilled workers and professionals", "Families planning to settle together", "Graduates and international students in Canada"],
     includes: ["Eligibility and points (CRS) assessment", "Educational credential assessment guidance", "IELTS / PTE preparation", "Express Entry profile and application", "Provincial nominee programme options"],
     steps: [
       { title: "Eligibility check", text: "We assess your profile and estimate your score for the relevant programmes." },
-      { title: "Documents & tests", text: "Credential assessment, language test and supporting documents, prepared properly." },
+      { title: "Documents & tests", text: "Credential assessment, language test and supporting documents, checked before you submit." },
       { title: "Profile & invitation", text: "We create your profile and look at provincial options that may improve your chances." },
       { title: "PR application", text: "When invited, we file your application and support you until the decision." },
     ],
@@ -92,13 +92,13 @@ export const services: Service[] = [
   {
     slug: "visit-visa-assistance",
     title: "Visit Visa Assistance",
-    short: "Tourist and family-visit visa applications, prepared properly the first time.",
+    short: "Tourist and family-visit visa applications, with forms and documents checked before you submit.",
     icon: "plane",
     img: auckland,
     imgAlt: "Auckland skyline at night",
     group: "Visas & documents",
     intro: [
-      "Whether you are visiting children studying abroad, attending a family event or travelling for a holiday, a well-prepared application makes all the difference.",
+      "Parents visiting children who study abroad, families going to a wedding, people on holiday: each kind of visit needs its own set of documents.",
       "We prepare your forms and supporting documents the way each embassy expects, and book your appointments.",
     ],
     forWho: ["Parents visiting children abroad", "Families attending weddings and events", "Tourists and business visitors"],
@@ -119,8 +119,9 @@ export const services: Service[] = [
     imgAlt: "London's Houses of Parliament at dusk",
     group: "Coaching",
     intro: [
-      "Your IELTS score decides which universities, courses and visas are open to you. Our coaching focuses on the score your plans need, not just general English.",
-      "Classes run in our Tolichowki office, next door to your counsellor, so your test date fits your application timeline.",
+      "Your IELTS score decides which universities, courses and visas are open to you. Our coaching aims for the band score your plans need.",
+      "Classes run in our Tolichowki office, and we plan your test date around your application deadlines.",
+      // PLACEHOLDER: batch timings, course length and fees. Ask ISTA.
     ],
     forWho: ["Students applying to study abroad", "Professionals applying for PR", "Anyone who needs a specific band score"],
     includes: ["IELTS Academic and General Training", "Listening, reading, writing and speaking practice", "Full-length mock tests", "Writing and speaking feedback", "Test booking guidance"],
